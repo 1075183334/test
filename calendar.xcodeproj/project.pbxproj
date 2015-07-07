@@ -19,6 +19,13 @@
 		4E70CF7A1B4A1AE700A88A4D /* tabbar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF781B4A1AE700A88A4D /* tabbar_background@2x.png */; };
 		4E70CF7B1B4A1AE700A88A4D /* tabbar_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */; };
 		4E70CF7D1B4A741200A88A4D /* selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF7C1B4A741200A88A4D /* selected@2x.png */; };
+		4E70CF981B4B8D8B00A88A4D /* FolderCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF931B4B8D8B00A88A4D /* FolderCoverView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4E70CF991B4B8D8B00A88A4D /* UIFolderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF951B4B8D8B00A88A4D /* UIFolderTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4E70CF9A1B4B8D8B00A88A4D /* UIView+screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF971B4B8D8B00A88A4D /* UIView+screenshot.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4E70CFA21B4BA0E600A88A4D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFA01B4BA0E600A88A4D /* ViewController.m */; };
+		4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFA11B4BA0E600A88A4D /* ViewController.xib */; };
+		4E70CFA71B4BA1A300A88A4D /* SubCateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */; };
+		4E70CFA81B4BA1A300A88A4D /* SubCateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */; };
 		D7DBFF281B46261300A1F3A4 /* calendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DBFF271B46261300A1F3A4 /* calendarViewController.m */; };
 		D7DBFF2E1B465E8F00A1F3A4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DBFF2D1B465E8F00A1F3A4 /* CoreData.framework */; };
 		D7DDA7001B44C5FB00B211C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA6FF1B44C5FB00B211C5 /* main.m */; };
@@ -30,7 +37,6 @@
 		D7DDA72B1B44C6F400B211C5 /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7DDA72A1B44C6F400B211C5 /* Images-2.xcassets */; };
 		D7DDA73B1B4502D400B211C5 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA73A1B4502D400B211C5 /* EditViewController.m */; };
 		D7DDA73D1B45040500B211C5 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DDA73C1B45040500B211C5 /* EventKit.framework */; };
-		D7DDA7401B451A8000B211C5 /* beganEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA73F1B451A8000B211C5 /* beganEditViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +71,18 @@
 		4E70CF781B4A1AE700A88A4D /* tabbar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_background@2x.png"; sourceTree = "<group>"; };
 		4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_slider@2x.png"; sourceTree = "<group>"; };
 		4E70CF7C1B4A741200A88A4D /* selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selected@2x.png"; sourceTree = "<group>"; };
+		4E70CF921B4B8D8B00A88A4D /* FolderCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderCoverView.h; sourceTree = "<group>"; };
+		4E70CF931B4B8D8B00A88A4D /* FolderCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderCoverView.m; sourceTree = "<group>"; };
+		4E70CF941B4B8D8B00A88A4D /* UIFolderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFolderTableView.h; sourceTree = "<group>"; };
+		4E70CF951B4B8D8B00A88A4D /* UIFolderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIFolderTableView.m; sourceTree = "<group>"; };
+		4E70CF961B4B8D8B00A88A4D /* UIView+screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+screenshot.h"; sourceTree = "<group>"; };
+		4E70CF971B4B8D8B00A88A4D /* UIView+screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+screenshot.m"; sourceTree = "<group>"; };
+		4E70CF9F1B4BA0E600A88A4D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		4E70CFA01B4BA0E600A88A4D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4E70CFA11B4BA0E600A88A4D /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubCateViewController.h; sourceTree = "<group>"; };
+		4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubCateViewController.m; sourceTree = "<group>"; };
+		4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubCateViewController.xib; sourceTree = "<group>"; };
 		D7DBFF261B46261300A1F3A4 /* calendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calendarViewController.h; sourceTree = "<group>"; };
 		D7DBFF271B46261300A1F3A4 /* calendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calendarViewController.m; sourceTree = "<group>"; };
 		D7DBFF2D1B465E8F00A1F3A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -84,8 +102,6 @@
 		D7DDA7391B4502D400B211C5 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		D7DDA73A1B4502D400B211C5 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		D7DDA73C1B45040500B211C5 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		D7DDA73E1B451A8000B211C5 /* beganEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beganEditViewController.h; sourceTree = "<group>"; };
-		D7DDA73F1B451A8000B211C5 /* beganEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beganEditViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +138,7 @@
 		4E70CF661B4A15D000A88A4D /* categroy */ = {
 			isa = PBXGroup;
 			children = (
+				4E70CF911B4B8D8B00A88A4D /* Floder */,
 				4E70CF671B4A163A00A88A4D /* NSString+File.h */,
 				4E70CF681B4A163A00A88A4D /* NSString+File.m */,
 			);
@@ -151,6 +168,19 @@
 				4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */,
 			);
 			path = resource;
+			sourceTree = "<group>";
+		};
+		4E70CF911B4B8D8B00A88A4D /* Floder */ = {
+			isa = PBXGroup;
+			children = (
+				4E70CF921B4B8D8B00A88A4D /* FolderCoverView.h */,
+				4E70CF931B4B8D8B00A88A4D /* FolderCoverView.m */,
+				4E70CF941B4B8D8B00A88A4D /* UIFolderTableView.h */,
+				4E70CF951B4B8D8B00A88A4D /* UIFolderTableView.m */,
+				4E70CF961B4B8D8B00A88A4D /* UIView+screenshot.h */,
+				4E70CF971B4B8D8B00A88A4D /* UIView+screenshot.m */,
+			);
+			path = Floder;
 			sourceTree = "<group>";
 		};
 		D7DBFF2C1B463D2100A1F3A4 /* modle */ = {
@@ -252,10 +282,14 @@
 				4E70CF761B4A189800A88A4D /* eventCal */,
 				D7DDA7391B4502D400B211C5 /* EditViewController.h */,
 				D7DDA73A1B4502D400B211C5 /* EditViewController.m */,
-				D7DDA73E1B451A8000B211C5 /* beganEditViewController.h */,
-				D7DDA73F1B451A8000B211C5 /* beganEditViewController.m */,
 				D7DBFF261B46261300A1F3A4 /* calendarViewController.h */,
 				D7DBFF271B46261300A1F3A4 /* calendarViewController.m */,
+				4E70CF9F1B4BA0E600A88A4D /* ViewController.h */,
+				4E70CFA01B4BA0E600A88A4D /* ViewController.m */,
+				4E70CFA11B4BA0E600A88A4D /* ViewController.xib */,
+				4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */,
+				4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */,
+				4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -344,6 +378,8 @@
 				D7DDA70E1B44C5FB00B211C5 /* Images.xcassets in Resources */,
 				4E70CF7D1B4A741200A88A4D /* selected@2x.png in Resources */,
 				4E70CF7A1B4A1AE700A88A4D /* tabbar_background@2x.png in Resources */,
+				4E70CFA81B4BA1A300A88A4D /* SubCateViewController.xib in Resources */,
+				4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */,
 				4E70CF7B1B4A1AE700A88A4D /* tabbar_slider@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,19 +398,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E70CFA71B4BA1A300A88A4D /* SubCateViewController.m in Sources */,
+				4E70CFA21B4BA0E600A88A4D /* ViewController.m in Sources */,
 				4E70CF6F1B4A176000A88A4D /* CalendarsViewController.m in Sources */,
 				4E70CF751B4A186F00A88A4D /* SecondCarlendarViewController.m in Sources */,
-				D7DDA7401B451A8000B211C5 /* beganEditViewController.m in Sources */,
 				D7DDA7031B44C5FB00B211C5 /* AppDelegate.m in Sources */,
 				4E70CF5C1B4A0D7B00A88A4D /* Event.m in Sources */,
 				4E70CF691B4A163A00A88A4D /* NSString+File.m in Sources */,
 				4E2FD4D01B47C61E00DB7E11 /* CalendarView.m in Sources */,
+				4E70CF991B4B8D8B00A88A4D /* UIFolderTableView.m in Sources */,
 				D7DDA7061B44C5FB00B211C5 /* calendar.xcdatamodeld in Sources */,
 				4E70CF5F1B4A0D7C00A88A4D /* Calendar.m in Sources */,
+				4E70CF981B4B8D8B00A88A4D /* FolderCoverView.m in Sources */,
 				4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */,
 				D7DDA7001B44C5FB00B211C5 /* main.m in Sources */,
 				4E70CF721B4A177A00A88A4D /* AddCalendarsViewController.m in Sources */,
 				4E2FD4CD1B47C12E00DB7E11 /* pickView.m in Sources */,
+				4E70CF9A1B4B8D8B00A88A4D /* UIView+screenshot.m in Sources */,
 				D7DDA7291B44C66C00B211C5 /* mainViewController.m in Sources */,
 				D7DDA73B1B4502D400B211C5 /* EditViewController.m in Sources */,
 				D7DBFF281B46261300A1F3A4 /* calendarViewController.m in Sources */,

@@ -202,7 +202,6 @@
     NSLog(@"%d",btn.tag);
     _currentColor = [_arrColor objectAtIndex:btn.tag];
 
-    
 }
 
 @end

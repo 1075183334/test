@@ -9,7 +9,6 @@
 #import "mainViewController.h"
 #import "CalendarView.h"
 #import "EditViewController.h"
-#import "beganEditViewController.h"
 #import <EventKit/EventKit.h>
 #import "TodayViewController.h"
 #import "CalendarsViewController.h"
@@ -17,7 +16,6 @@
 {
     UIViewController* _currentViewController;
 }
-@property(nonatomic, strong)beganEditViewController* beganVic;
 @property(nonatomic, strong)CalendarView* myCalendar;
 @property(nonatomic, strong)UITableView* table;
 @end
@@ -27,13 +25,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.beganVic = [[beganEditViewController alloc]init];
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    [btn addTarget:self action:@selector(EditClick) forControlEvents:UIControlEventTouchUpInside];
+    
     [self createCalendar];
     [self createTableView];
-    [self createEditBtn];
+//    [self createEditBtn];
     [self createChildVic];
 }
 
+-(void)EditClick
+{
+    [self.navigationController pushViewController:[[EditViewController alloc]init] animated:YES];
+}
 
 -(void)createChildVic
 {
@@ -75,7 +80,7 @@
 {
     self.myCalendar = [[CalendarView alloc]initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, 200)];
     self.myCalendar.delegate = self;
-    self.myCalendar.calendarDate = [NSDate date];
+//    self.myCalendar.calendarDate = [NSDate date];
     
     [self.view addSubview:self.myCalendar];
     
@@ -91,25 +96,24 @@
     
 }
 
--(void)createEditBtn
-{
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    btn.frame = CGRectMake(290, 20, 20, 20);
-    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:btn];
-}
-
-- (void)btnClick:(UIButton* )btn
-{
-    [self presentViewController:[[EditViewController alloc]init] animated:YES completion:^{
-    }];
-}
+//-(void)createEditBtn
+//{
+//    UIButton* btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+//    btn.frame = CGRectMake(290, 20, 20, 20);
+//    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchDown];
+//    [self.view addSubview:btn];
+//}
+//
+//- (void)btnClick:(UIButton* )btn
+//{
+//    [self presentViewController:[[EditViewController alloc]init] animated:YES completion:^{
+//    }];
+//}
 
 #pragma mark - CalendarDelegate protocol conformance
 
 -(void)dayChangedToDate:(NSDate *)selectedDate
 {
-    self.beganVic.date = selectedDate;
 }
 
 #pragma mark - uitableViewdelegate
@@ -121,16 +125,16 @@
 #pragma mark - uitableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"cell1";
+    static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];}
-
+    
     
      return cell;
 
