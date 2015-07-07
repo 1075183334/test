@@ -17,5 +17,6 @@
 @interface AddCalendarsViewController : UIViewController
 @property(nonatomic, strong)id<AddCalendarDelegate> delegate;
 @property(nonatomic, copy)NSString* methodString;
+@property(nonatomic, copy)NSString* nameSring;
 @property(nonatomic, assign)int methodIndex;
 @end

@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		4E2FD4CD1B47C12E00DB7E11 /* pickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FD4CC1B47C12E00DB7E11 /* pickView.m */; };
 		4E2FD4D01B47C61E00DB7E11 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FD4CF1B47C61E00DB7E11 /* CalendarView.m */; };
-		4E70CF5C1B4A0D7B00A88A4D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF5B1B4A0D7B00A88A4D /* Event.m */; };
-		4E70CF5F1B4A0D7C00A88A4D /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF5E1B4A0D7C00A88A4D /* Calendar.m */; };
-		4E70CF691B4A163A00A88A4D /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF681B4A163A00A88A4D /* NSString+File.m */; };
 		4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF6B1B4A173800A88A4D /* TodayViewController.m */; };
 		4E70CF6F1B4A176000A88A4D /* CalendarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF6E1B4A176000A88A4D /* CalendarsViewController.m */; };
 		4E70CF721B4A177A00A88A4D /* AddCalendarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF711B4A177A00A88A4D /* AddCalendarsViewController.m */; };
@@ -26,6 +23,9 @@
 		4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFA11B4BA0E600A88A4D /* ViewController.xib */; };
 		4E70CFA71B4BA1A300A88A4D /* SubCateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */; };
 		4E70CFA81B4BA1A300A88A4D /* SubCateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */; };
+		4E70CFB61B4BBCD000A88A4D /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFB31B4BBCD000A88A4D /* Calendar.m */; };
+		4E70CFB71B4BBCD000A88A4D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFB51B4BBCD000A88A4D /* Event.m */; };
+		4E70CFBC1B4BCD7D00A88A4D /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFBB1B4BCD7D00A88A4D /* select.png */; };
 		D7DBFF281B46261300A1F3A4 /* calendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DBFF271B46261300A1F3A4 /* calendarViewController.m */; };
 		D7DBFF2E1B465E8F00A1F3A4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DBFF2D1B465E8F00A1F3A4 /* CoreData.framework */; };
 		D7DDA7001B44C5FB00B211C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA6FF1B44C5FB00B211C5 /* main.m */; };
@@ -54,12 +54,6 @@
 		4E2FD4CC1B47C12E00DB7E11 /* pickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pickView.m; sourceTree = "<group>"; };
 		4E2FD4CE1B47C61E00DB7E11 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
 		4E2FD4CF1B47C61E00DB7E11 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
-		4E70CF5A1B4A0D7B00A88A4D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../../Event.h; sourceTree = "<group>"; };
-		4E70CF5B1B4A0D7B00A88A4D /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = ../../Event.m; sourceTree = "<group>"; };
-		4E70CF5D1B4A0D7C00A88A4D /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Calendar.h; path = ../../Calendar.h; sourceTree = "<group>"; };
-		4E70CF5E1B4A0D7C00A88A4D /* Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Calendar.m; path = ../../Calendar.m; sourceTree = "<group>"; };
-		4E70CF671B4A163A00A88A4D /* NSString+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
-		4E70CF681B4A163A00A88A4D /* NSString+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+File.m"; sourceTree = "<group>"; };
 		4E70CF6A1B4A173800A88A4D /* TodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodayViewController.h; path = ../TodayViewController.h; sourceTree = "<group>"; };
 		4E70CF6B1B4A173800A88A4D /* TodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodayViewController.m; path = ../TodayViewController.m; sourceTree = "<group>"; };
 		4E70CF6D1B4A176000A88A4D /* CalendarsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalendarsViewController.h; path = ../CalendarsViewController.h; sourceTree = "<group>"; };
@@ -77,14 +71,19 @@
 		4E70CF951B4B8D8B00A88A4D /* UIFolderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIFolderTableView.m; sourceTree = "<group>"; };
 		4E70CF961B4B8D8B00A88A4D /* UIView+screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+screenshot.h"; sourceTree = "<group>"; };
 		4E70CF971B4B8D8B00A88A4D /* UIView+screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+screenshot.m"; sourceTree = "<group>"; };
-		4E70CF9F1B4BA0E600A88A4D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4E70CFA01B4BA0E600A88A4D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		4E70CFA11B4BA0E600A88A4D /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubCateViewController.h; sourceTree = "<group>"; };
-		4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubCateViewController.m; sourceTree = "<group>"; };
-		4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubCateViewController.xib; sourceTree = "<group>"; };
-		D7DBFF261B46261300A1F3A4 /* calendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calendarViewController.h; sourceTree = "<group>"; };
-		D7DBFF271B46261300A1F3A4 /* calendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calendarViewController.m; sourceTree = "<group>"; };
+		4E70CF9F1B4BA0E600A88A4D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../ViewController.h; sourceTree = "<group>"; };
+		4E70CFA01B4BA0E600A88A4D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../ViewController.m; sourceTree = "<group>"; };
+		4E70CFA11B4BA0E600A88A4D /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = ../ViewController.xib; sourceTree = "<group>"; };
+		4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubCateViewController.h; path = ../SubCateViewController.h; sourceTree = "<group>"; };
+		4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubCateViewController.m; path = ../SubCateViewController.m; sourceTree = "<group>"; };
+		4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubCateViewController.xib; path = ../SubCateViewController.xib; sourceTree = "<group>"; };
+		4E70CFB21B4BBCD000A88A4D /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calendar.h; sourceTree = "<group>"; };
+		4E70CFB31B4BBCD000A88A4D /* Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Calendar.m; sourceTree = "<group>"; };
+		4E70CFB41B4BBCD000A88A4D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		4E70CFB51B4BBCD000A88A4D /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		4E70CFBB1B4BCD7D00A88A4D /* select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select.png; sourceTree = "<group>"; };
+		D7DBFF261B46261300A1F3A4 /* calendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = calendarViewController.h; path = ../calendarViewController.h; sourceTree = "<group>"; };
+		D7DBFF271B46261300A1F3A4 /* calendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = calendarViewController.m; path = ../calendarViewController.m; sourceTree = "<group>"; };
 		D7DBFF2D1B465E8F00A1F3A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D7DDA6FA1B44C5FB00B211C5 /* calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7DDA6FE1B44C5FB00B211C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,8 +98,8 @@
 		D7DDA7271B44C66C00B211C5 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainViewController.h; path = ../mainViewController.h; sourceTree = "<group>"; };
 		D7DDA7281B44C66C00B211C5 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mainViewController.m; path = ../mainViewController.m; sourceTree = "<group>"; };
 		D7DDA72A1B44C6F400B211C5 /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
-		D7DDA7391B4502D400B211C5 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
-		D7DDA73A1B4502D400B211C5 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
+		D7DDA7391B4502D400B211C5 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditViewController.h; path = ../EditViewController.h; sourceTree = "<group>"; };
+		D7DDA73A1B4502D400B211C5 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditViewController.m; path = ../EditViewController.m; sourceTree = "<group>"; };
 		D7DDA73C1B45040500B211C5 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -138,9 +137,8 @@
 		4E70CF661B4A15D000A88A4D /* categroy */ = {
 			isa = PBXGroup;
 			children = (
+				4E70CFB11B4BBCD000A88A4D /* modle */,
 				4E70CF911B4B8D8B00A88A4D /* Floder */,
-				4E70CF671B4A163A00A88A4D /* NSString+File.h */,
-				4E70CF681B4A163A00A88A4D /* NSString+File.m */,
 			);
 			path = categroy;
 			sourceTree = "<group>";
@@ -163,6 +161,7 @@
 		4E70CF771B4A1ACA00A88A4D /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				4E70CFBB1B4BCD7D00A88A4D /* select.png */,
 				4E70CF7C1B4A741200A88A4D /* selected@2x.png */,
 				4E70CF781B4A1AE700A88A4D /* tabbar_background@2x.png */,
 				4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */,
@@ -183,13 +182,31 @@
 			path = Floder;
 			sourceTree = "<group>";
 		};
-		D7DBFF2C1B463D2100A1F3A4 /* modle */ = {
+		4E70CFA91B4BA27400A88A4D /* calendar */ = {
 			isa = PBXGroup;
 			children = (
-				4E70CF5D1B4A0D7C00A88A4D /* Calendar.h */,
-				4E70CF5E1B4A0D7C00A88A4D /* Calendar.m */,
-				4E70CF5A1B4A0D7B00A88A4D /* Event.h */,
-				4E70CF5B1B4A0D7B00A88A4D /* Event.m */,
+				D7DDA7391B4502D400B211C5 /* EditViewController.h */,
+				D7DDA73A1B4502D400B211C5 /* EditViewController.m */,
+				D7DBFF261B46261300A1F3A4 /* calendarViewController.h */,
+				D7DBFF271B46261300A1F3A4 /* calendarViewController.m */,
+				4E70CF9F1B4BA0E600A88A4D /* ViewController.h */,
+				4E70CFA01B4BA0E600A88A4D /* ViewController.m */,
+				4E70CFA11B4BA0E600A88A4D /* ViewController.xib */,
+				4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */,
+				4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */,
+				4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */,
+			);
+			name = calendar;
+			path = eventCal;
+			sourceTree = "<group>";
+		};
+		4E70CFB11B4BBCD000A88A4D /* modle */ = {
+			isa = PBXGroup;
+			children = (
+				4E70CFB21B4BBCD000A88A4D /* Calendar.h */,
+				4E70CFB31B4BBCD000A88A4D /* Calendar.m */,
+				4E70CFB41B4BBCD000A88A4D /* Event.h */,
+				4E70CFB51B4BBCD000A88A4D /* Event.m */,
 			);
 			path = modle;
 			sourceTree = "<group>";
@@ -259,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				4E70CF661B4A15D000A88A4D /* categroy */,
-				D7DBFF2C1B463D2100A1F3A4 /* modle */,
 				D7DDA7381B4502B500B211C5 /* controller */,
 				D7DDA72C1B44C84D00B211C5 /* other */,
 				4E2FD4CA1B47C12E00DB7E11 /* view */,
@@ -280,16 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				4E70CF761B4A189800A88A4D /* eventCal */,
-				D7DDA7391B4502D400B211C5 /* EditViewController.h */,
-				D7DDA73A1B4502D400B211C5 /* EditViewController.m */,
-				D7DBFF261B46261300A1F3A4 /* calendarViewController.h */,
-				D7DBFF271B46261300A1F3A4 /* calendarViewController.m */,
-				4E70CF9F1B4BA0E600A88A4D /* ViewController.h */,
-				4E70CFA01B4BA0E600A88A4D /* ViewController.m */,
-				4E70CFA11B4BA0E600A88A4D /* ViewController.xib */,
-				4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */,
-				4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */,
-				4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */,
+				4E70CFA91B4BA27400A88A4D /* calendar */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -380,6 +387,7 @@
 				4E70CF7A1B4A1AE700A88A4D /* tabbar_background@2x.png in Resources */,
 				4E70CFA81B4BA1A300A88A4D /* SubCateViewController.xib in Resources */,
 				4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */,
+				4E70CFBC1B4BCD7D00A88A4D /* select.png in Resources */,
 				4E70CF7B1B4A1AE700A88A4D /* tabbar_slider@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,13 +411,12 @@
 				4E70CF6F1B4A176000A88A4D /* CalendarsViewController.m in Sources */,
 				4E70CF751B4A186F00A88A4D /* SecondCarlendarViewController.m in Sources */,
 				D7DDA7031B44C5FB00B211C5 /* AppDelegate.m in Sources */,
-				4E70CF5C1B4A0D7B00A88A4D /* Event.m in Sources */,
-				4E70CF691B4A163A00A88A4D /* NSString+File.m in Sources */,
 				4E2FD4D01B47C61E00DB7E11 /* CalendarView.m in Sources */,
+				4E70CFB71B4BBCD000A88A4D /* Event.m in Sources */,
 				4E70CF991B4B8D8B00A88A4D /* UIFolderTableView.m in Sources */,
 				D7DDA7061B44C5FB00B211C5 /* calendar.xcdatamodeld in Sources */,
-				4E70CF5F1B4A0D7C00A88A4D /* Calendar.m in Sources */,
 				4E70CF981B4B8D8B00A88A4D /* FolderCoverView.m in Sources */,
+				4E70CFB61B4BBCD000A88A4D /* Calendar.m in Sources */,
 				4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */,
 				D7DDA7001B44C5FB00B211C5 /* main.m in Sources */,
 				4E70CF721B4A177A00A88A4D /* AddCalendarsViewController.m in Sources */,

@@ -28,7 +28,7 @@
     [super viewDidLoad];
     self.title = @"Calendars";
     self.view.backgroundColor = [UIColor whiteColor];
-    _nameSecondMutableArr = [NSMutableArray arrayWithObjects:@"Work",@"Daily Life",@"Family",@"Add Calendars", nil];
+    _nameSecondMutableArr = [NSMutableArray arrayWithObjects:@"Add Calendars", nil];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(CancelVic)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(SaveBtn)];
     self.addCalendarController = [[AddCalendarsViewController alloc]init];
@@ -71,11 +71,14 @@
     return 40;
 }
 
+#pragma mark - UITableViewDataSource
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row < [_nameSecondMutableArr count]-1) {
         self.addCalendarController.methodIndex = indexPath.row;
         self.addCalendarController.methodString = @"change";
+        self.addCalendarController.nameSring = [_nameSecondMutableArr objectAtIndex:indexPath.row];
     }else
     {
         self.addCalendarController.methodString = @"add";
@@ -86,7 +89,7 @@
     
 }
 
-#pragma mark - UITableViewDataSource
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -112,6 +115,28 @@
     return cell;
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_nameSecondMutableArr removeObjectAtIndex:indexPath.row];
+        // Delete the row from the data source.
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert)
+    {
+        
+    }
+    
+}
+
+#pragma mark - AddCalendarDelegate
 -(void)AddcalendarName:(NSString *)name withColor:(UIColor *)color withMethod:(NSString *)method withIndex:(int)index
 {
     if (name.length ==0 ) {
@@ -133,23 +158,5 @@
    
 }
 
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
 
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_nameSecondMutableArr removeObjectAtIndex:indexPath.row];
-        // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-    
-}
 @end

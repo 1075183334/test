@@ -29,7 +29,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.secondController = [[SecondCarlendarViewController alloc] init];
     self.secondController.secondDelegate = self;
-    _nameMutableArr = [NSArray arrayWithObjects:@"Work",@"Daily Life",@"Family", nil];
+    _nameMutableArr = [NSArray array];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(showNextVic)];
     
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneBtn)];
