@@ -62,8 +62,8 @@
         _hideMonthLabel             = NO;
         _keepSelDayWhenMonthChange  = NO;
         
-        _nextMonthAnimation         = UIViewAnimationOptionTransitionCrossDissolve;
-        _prevMonthAnimation         = UIViewAnimationOptionTransitionCrossDissolve;
+        _nextMonthAnimation         = UIViewAnimationOptionTransitionCurlUp;
+        _prevMonthAnimation         = UIViewAnimationOptionTransitionCurlDown;
         
         _defaultFont                = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
         _titleFont                  = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
@@ -83,6 +83,7 @@
         
         _selectedDate = [_gregorian dateFromComponents:components];
         
+       
         NSArray * shortWeekdaySymbols = [[[NSDateFormatter alloc] init] shortWeekdaySymbols];
         _weekDayNames  = @[shortWeekdaySymbols[1], shortWeekdaySymbols[2], shortWeekdaySymbols[3], shortWeekdaySymbols[4],
                            shortWeekdaySymbols[5], shortWeekdaySymbols[6], shortWeekdaySymbols[0]];
@@ -94,7 +95,7 @@
 
 -(id)init
 {
-    self = [self initWithFrame:CGRectMake(0, 0, 320, 400)];
+    self = [self initWithFrame:CGRectMake(0, 0, 320, 300)];
     if (self)
     {
         
@@ -129,6 +130,7 @@
     [self setNeedsDisplay];
 }
 
+
 -(void)setCalendarDate:(NSDate *)calendarDate
 {
     _calendarDate = calendarDate;
@@ -137,7 +139,9 @@
 
 
 #pragma mark - Public methods
-
+/**
+ *  下个月
+ */
 -(void)showNextMonth
 {
     NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
@@ -153,7 +157,7 @@
         
         if (!_keepSelDayWhenMonthChange)
         {
-            _selectedDate = [_gregorian dateFromComponents:components];
+//            _selectedDate = [_gregorian dateFromComponents:components];
         }
         [self performViewAnimation:_nextMonthAnimation];
     }
@@ -162,7 +166,9 @@
         [self performViewNoSwipeAnimation];
     }
 }
-
+/**
+ *  显示上个月
+ */
 
 -(void)showPreviousMonth
 {
@@ -191,6 +197,13 @@
 
 #pragma mark - Various methods
 
+/**
+ *  日期的按钮tag
+ *
+ *  @param date 日期
+ *
+ *  @return tag
+ */
 
 -(NSInteger)buttonTagForDate:(NSDate *)date
 {
@@ -210,6 +223,14 @@
     }
 }
 
+/**
+ *  能否滑动改变日期
+ *
+ *  @param date 日期
+ *
+ *  @return bool
+ */
+
 -(BOOL)canSwipeToDate:(NSDate *)date
 {
     if (_datasource == nil)
@@ -217,12 +238,19 @@
     return [_datasource canSwipeToDate:date];
 }
 
+/**
+ *   显示的动画
+ *
+ *  @param animation
+ */
+
 -(void)performViewAnimation:(UIViewAnimationOptions)animation
 {
     NSDateComponents * components = [_gregorian components:_dayInfoUnits fromDate:_selectedDate];
     
     NSDate *clickedDate = [_gregorian dateFromComponents:components];
     [_delegate dayChangedToDate:clickedDate];
+  
     
     [UIView transitionWithView:self
                       duration:0.5f
@@ -238,7 +266,7 @@
     [self shakeView:self];
 }
 
-// Taken from http://github.com/kosyloa/PinPad
+
 -(void)shakeView:(UIView *)theOneYouWannaShake
 {
     [UIView animateWithDuration:0.05 animations:^
@@ -409,29 +437,30 @@
     CGContextAddRect(context, CGRectMake(_originX - _borderWidth/2.f, maxY - _borderWidth/2.f, 7*_dayWidth + _borderWidth, _borderWidth));
     CGContextAddRect(context, CGRectMake(_originX - _borderWidth/2.f, minY - _borderWidth/2.f, _borderWidth, maxY - minY));
     CGContextAddRect(context, CGRectMake(_originX + 7*_dayWidth - _borderWidth/2.f, minY - _borderWidth/2.f, _borderWidth, maxY - minY));
+    
     CGContextFillPath(context);
     CGColorSpaceRelease(baseSpace), baseSpace = NULL;
-    
+   
     BOOL enableNext = YES;
     BOOL enablePrev = YES;
     
     // Previous and next button
-    UIButton * buttonPrev          = [[UIButton alloc] initWithFrame:CGRectMake(_originX, 0, _dayWidth, _dayWidth)];
+    UIButton * buttonPrev           = [[UIButton alloc] initWithFrame:CGRectMake(_originX, 0, _dayWidth, _dayWidth)];
     [buttonPrev setTitle:@"<" forState:UIControlStateNormal];
     [buttonPrev setTitleColor:_monthAndDayTextColor forState:UIControlStateNormal];
     [buttonPrev addTarget:self action:@selector(showPreviousMonth) forControlEvents:UIControlEventTouchUpInside];
-    buttonPrev.titleLabel.font          = _defaultFont;
+    buttonPrev.titleLabel.font      = _defaultFont;
     [self addSubview:buttonPrev];
-    
-    UIButton * buttonNext          = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - _dayWidth - _originX, 0, _dayWidth, _dayWidth)];
+
+    UIButton * buttonNext           = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - _dayWidth - _originX, 0, _dayWidth, _dayWidth)];
     [buttonNext setTitle:@">" forState:UIControlStateNormal];
     [buttonNext setTitleColor:_monthAndDayTextColor forState:UIControlStateNormal];
     [buttonNext addTarget:self action:@selector(showNextMonth) forControlEvents:UIControlEventTouchUpInside];
-    buttonNext.titleLabel.font          = _defaultFont;
+    buttonNext.titleLabel.font      = _defaultFont;
     [self addSubview:buttonNext];
-    
+
     NSDateComponents *componentsTmp = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
-    componentsTmp.day = 1;
+    componentsTmp.day               = 1;
     componentsTmp.month --;
     NSDate * prevMonthDate =[_gregorian dateFromComponents:componentsTmp];
     if (![self canSwipeToDate:prevMonthDate])
@@ -537,6 +566,3 @@
 }
 
 @end
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com

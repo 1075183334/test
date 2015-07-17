@@ -10,7 +10,7 @@
 
 @protocol calendarDelegate <NSObject>
 
-- (void)calendarViewWithColor:(UIColor*)color withTitle:(NSString* )string;
+- (void)calendarViewWithColor:(NSString*)color withTitle:(NSString* )string;
 
 @end
 @interface calendarViewController : UIViewController

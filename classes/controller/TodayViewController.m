@@ -7,9 +7,14 @@
 //
 
 #import "TodayViewController.h"
-
-@interface TodayViewController ()
-
+#import "AppDelegate.h"
+#import "Calendar.h"
+#import "Event.h"
+@interface TodayViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    UITableView* _tableView;
+    NSMutableArray   *eventArray;
+}
 @end
 
 @implementation TodayViewController
@@ -19,23 +24,75 @@
 
     self.title = @"Today";
     self.view.backgroundColor = [UIColor whiteColor];
-
+    eventArray = [NSMutableArray array];
+    [self createTableView];
+    [self showDataFromCoredata];
 
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)createTableView
+{
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableView Delegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+#pragma mark - UITableView Datasource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [eventArray count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString* cellIdentifier = @"cell";
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    }
+//    Calendar* cal = [_dataArr objectAtIndex:indexPath.row];
+    Event *event = eventArray[indexPath.row];
+    cell.textLabel.text = event.eventName;
+    cell.detailTextLabel.text = [[event.startTime description] substringToIndex:19];
+//    NSLog(@"%@",cal);
+    
+    return cell;
+   
+}
+
+-(void)showDataFromCoredata
+{
+    AppDelegate* myappdelegate = [UIApplication sharedApplication].delegate;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"calCheck == 1"];
+    
+    //首先你需要建立一个request
+    NSFetchRequest * request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Calendar" inManagedObjectContext:myappdelegate.managedObjectContext]];
+    [request setPredicate:predicate];//这里相当于sqlite中的查询条件，具体格式参考苹果文档
+    
+    NSError *error = nil;
+    NSArray *result = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
+    //    for (Event *info in result) {
+    //    NSLog(@"result==%@  %@",info.date,info.eventName);
+    //    }
+//    NSLog(@"%@",result);
+    [eventArray removeAllObjects];
+    for (Calendar *cal in result) {
+        [eventArray addObjectsFromArray:[cal.calEvents allObjects]];
+    }
+}
 
 @end

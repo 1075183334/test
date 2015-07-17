@@ -1,13 +1,13 @@
 //
-//  mainViewController.h
+//  timeViewController.h
 //  calendar
 //
-//  Created by APPXY on 15/7/2.
+//  Created by 晓东 on 15/7/16.
 //  Copyright (c) 2015年 APPXY. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
+@interface timeViewController : UIViewController
 
-@interface mainViewController : UIViewController
 @end

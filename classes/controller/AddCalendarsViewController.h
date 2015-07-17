@@ -10,7 +10,7 @@
 
 @protocol AddCalendarDelegate <NSObject>
 
--(void)AddcalendarName:(NSString*)name withColor:(UIColor *)color withMethod:(NSString* )method withIndex:(int)index;
+-(void)AddcalendarName:(NSString*)name withColor:(UIColor *)color withMethod:(NSString* )method withIndex:(int)index withBtnIndex:(int)btnIndex;
 
 @end
 
@@ -19,4 +19,5 @@
 @property(nonatomic, copy)NSString* methodString;
 @property(nonatomic, copy)NSString* nameSring;
 @property(nonatomic, assign)int methodIndex;
+@property(nonatomic, assign)int btnTag;
 @end

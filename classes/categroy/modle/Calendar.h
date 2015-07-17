@@ -2,7 +2,7 @@
 //  Calendar.h
 //  calendar
 //
-//  Created by 晓东 on 15/7/7.
+//  Created by 晓东 on 15/7/14.
 //  Copyright (c) 2015年 APPXY. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * calColor;
 @property (nonatomic, retain) NSString * calName;
+@property (nonatomic, retain) NSNumber * calCheck;
 @property (nonatomic, retain) NSSet *calEvents;
 @end
 

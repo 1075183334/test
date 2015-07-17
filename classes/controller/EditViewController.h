@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Event.h"
 @interface EditViewController : UIViewController
-
+@property(nonatomic, strong)Event* eventCal;
 @end

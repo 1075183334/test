@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0677EF1B53A65000CE0D8A /* calColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0677EE1B53A65000CE0D8A /* calColorTableViewCell.m */; };
+		4E0991DA1B54AC1F00B4A739 /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0991D91B54AC1F00B4A739 /* Calendar.m */; };
 		4E2FD4CD1B47C12E00DB7E11 /* pickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FD4CC1B47C12E00DB7E11 /* pickView.m */; };
 		4E2FD4D01B47C61E00DB7E11 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FD4CF1B47C61E00DB7E11 /* CalendarView.m */; };
 		4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF6B1B4A173800A88A4D /* TodayViewController.m */; };
@@ -15,17 +17,19 @@
 		4E70CF751B4A186F00A88A4D /* SecondCarlendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF741B4A186F00A88A4D /* SecondCarlendarViewController.m */; };
 		4E70CF7A1B4A1AE700A88A4D /* tabbar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF781B4A1AE700A88A4D /* tabbar_background@2x.png */; };
 		4E70CF7B1B4A1AE700A88A4D /* tabbar_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */; };
-		4E70CF7D1B4A741200A88A4D /* selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF7C1B4A741200A88A4D /* selected@2x.png */; };
 		4E70CF981B4B8D8B00A88A4D /* FolderCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF931B4B8D8B00A88A4D /* FolderCoverView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4E70CF991B4B8D8B00A88A4D /* UIFolderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF951B4B8D8B00A88A4D /* UIFolderTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4E70CF9A1B4B8D8B00A88A4D /* UIView+screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF971B4B8D8B00A88A4D /* UIView+screenshot.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4E70CFA21B4BA0E600A88A4D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFA01B4BA0E600A88A4D /* ViewController.m */; };
 		4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFA11B4BA0E600A88A4D /* ViewController.xib */; };
-		4E70CFA71B4BA1A300A88A4D /* SubCateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */; };
-		4E70CFA81B4BA1A300A88A4D /* SubCateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */; };
-		4E70CFB61B4BBCD000A88A4D /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFB31B4BBCD000A88A4D /* Calendar.m */; };
-		4E70CFB71B4BBCD000A88A4D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CFB51B4BBCD000A88A4D /* Event.m */; };
 		4E70CFBC1B4BCD7D00A88A4D /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFBB1B4BCD7D00A88A4D /* select.png */; };
+		4E80562C1B550D05004821EE /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80562B1B550D05004821EE /* Event.m */; };
+		4E960BCD1B5763A00072DE54 /* timeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E960BCB1B5763A00072DE54 /* timeViewController.m */; };
+		4E960BCE1B5763A00072DE54 /* timeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E960BCC1B5763A00072DE54 /* timeViewController.xib */; };
+		4ED5C17D1B4CBC18000BD500 /* DataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5C17C1B4CBC18000BD500 /* DataClass.m */; };
+		4ED5E85C1B549E4B00B5B715 /* Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED5E85A1B549E4B00B5B715 /* Selected.png */; };
+		4ED5E85D1B549E4B00B5B715 /* Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED5E85B1B549E4B00B5B715 /* Unselected.png */; };
+		4ED874121B4DFF9300559DF3 /* SubCateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED874111B4DFF9300559DF3 /* SubCateViewController.m */; };
 		D7DBFF281B46261300A1F3A4 /* calendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DBFF271B46261300A1F3A4 /* calendarViewController.m */; };
 		D7DBFF2E1B465E8F00A1F3A4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DBFF2D1B465E8F00A1F3A4 /* CoreData.framework */; };
 		D7DDA7001B44C5FB00B211C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA6FF1B44C5FB00B211C5 /* main.m */; };
@@ -50,6 +54,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E0677ED1B53A65000CE0D8A /* calColorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calColorTableViewCell.h; sourceTree = "<group>"; };
+		4E0677EE1B53A65000CE0D8A /* calColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calColorTableViewCell.m; sourceTree = "<group>"; };
+		4E0991D81B54AC1F00B4A739 /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calendar.h; sourceTree = "<group>"; };
+		4E0991D91B54AC1F00B4A739 /* Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Calendar.m; sourceTree = "<group>"; };
 		4E2FD4CB1B47C12E00DB7E11 /* pickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pickView.h; sourceTree = "<group>"; };
 		4E2FD4CC1B47C12E00DB7E11 /* pickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pickView.m; sourceTree = "<group>"; };
 		4E2FD4CE1B47C61E00DB7E11 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
@@ -64,7 +72,6 @@
 		4E70CF741B4A186F00A88A4D /* SecondCarlendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SecondCarlendarViewController.m; path = ../SecondCarlendarViewController.m; sourceTree = "<group>"; };
 		4E70CF781B4A1AE700A88A4D /* tabbar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_background@2x.png"; sourceTree = "<group>"; };
 		4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_slider@2x.png"; sourceTree = "<group>"; };
-		4E70CF7C1B4A741200A88A4D /* selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selected@2x.png"; sourceTree = "<group>"; };
 		4E70CF921B4B8D8B00A88A4D /* FolderCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderCoverView.h; sourceTree = "<group>"; };
 		4E70CF931B4B8D8B00A88A4D /* FolderCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderCoverView.m; sourceTree = "<group>"; };
 		4E70CF941B4B8D8B00A88A4D /* UIFolderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFolderTableView.h; sourceTree = "<group>"; };
@@ -74,14 +81,18 @@
 		4E70CF9F1B4BA0E600A88A4D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../ViewController.h; sourceTree = "<group>"; };
 		4E70CFA01B4BA0E600A88A4D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../ViewController.m; sourceTree = "<group>"; };
 		4E70CFA11B4BA0E600A88A4D /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = ../ViewController.xib; sourceTree = "<group>"; };
-		4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubCateViewController.h; path = ../SubCateViewController.h; sourceTree = "<group>"; };
-		4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubCateViewController.m; path = ../SubCateViewController.m; sourceTree = "<group>"; };
-		4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubCateViewController.xib; path = ../SubCateViewController.xib; sourceTree = "<group>"; };
-		4E70CFB21B4BBCD000A88A4D /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calendar.h; sourceTree = "<group>"; };
-		4E70CFB31B4BBCD000A88A4D /* Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Calendar.m; sourceTree = "<group>"; };
-		4E70CFB41B4BBCD000A88A4D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		4E70CFB51B4BBCD000A88A4D /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		4E70CFBB1B4BCD7D00A88A4D /* select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select.png; sourceTree = "<group>"; };
+		4E80562A1B550D05004821EE /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		4E80562B1B550D05004821EE /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		4E960BCA1B5763A00072DE54 /* timeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeViewController.h; sourceTree = "<group>"; };
+		4E960BCB1B5763A00072DE54 /* timeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = timeViewController.m; sourceTree = "<group>"; };
+		4E960BCC1B5763A00072DE54 /* timeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = timeViewController.xib; sourceTree = "<group>"; };
+		4ED5C17B1B4CBC18000BD500 /* DataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataClass.h; sourceTree = "<group>"; };
+		4ED5C17C1B4CBC18000BD500 /* DataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataClass.m; sourceTree = "<group>"; };
+		4ED5E85A1B549E4B00B5B715 /* Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Selected.png; sourceTree = "<group>"; };
+		4ED5E85B1B549E4B00B5B715 /* Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unselected.png; sourceTree = "<group>"; };
+		4ED874101B4DFF9300559DF3 /* SubCateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubCateViewController.h; sourceTree = "<group>"; };
+		4ED874111B4DFF9300559DF3 /* SubCateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubCateViewController.m; sourceTree = "<group>"; };
 		D7DBFF261B46261300A1F3A4 /* calendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = calendarViewController.h; path = ../calendarViewController.h; sourceTree = "<group>"; };
 		D7DBFF271B46261300A1F3A4 /* calendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = calendarViewController.m; path = ../calendarViewController.m; sourceTree = "<group>"; };
 		D7DBFF2D1B465E8F00A1F3A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -123,6 +134,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E0991D71B54ABED00B4A739 /* modle */ = {
+			isa = PBXGroup;
+			children = (
+				4E0991D81B54AC1F00B4A739 /* Calendar.h */,
+				4E0991D91B54AC1F00B4A739 /* Calendar.m */,
+				4E80562A1B550D05004821EE /* Event.h */,
+				4E80562B1B550D05004821EE /* Event.m */,
+			);
+			path = modle;
+			sourceTree = "<group>";
+		};
 		4E2FD4CA1B47C12E00DB7E11 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +152,8 @@
 				4E2FD4CF1B47C61E00DB7E11 /* CalendarView.m */,
 				4E2FD4CB1B47C12E00DB7E11 /* pickView.h */,
 				4E2FD4CC1B47C12E00DB7E11 /* pickView.m */,
+				4E0677ED1B53A65000CE0D8A /* calColorTableViewCell.h */,
+				4E0677EE1B53A65000CE0D8A /* calColorTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -137,8 +161,10 @@
 		4E70CF661B4A15D000A88A4D /* categroy */ = {
 			isa = PBXGroup;
 			children = (
-				4E70CFB11B4BBCD000A88A4D /* modle */,
+				4E0991D71B54ABED00B4A739 /* modle */,
 				4E70CF911B4B8D8B00A88A4D /* Floder */,
+				4ED5C17B1B4CBC18000BD500 /* DataClass.h */,
+				4ED5C17C1B4CBC18000BD500 /* DataClass.m */,
 			);
 			path = categroy;
 			sourceTree = "<group>";
@@ -161,8 +187,9 @@
 		4E70CF771B4A1ACA00A88A4D /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				4ED5E85A1B549E4B00B5B715 /* Selected.png */,
+				4ED5E85B1B549E4B00B5B715 /* Unselected.png */,
 				4E70CFBB1B4BCD7D00A88A4D /* select.png */,
-				4E70CF7C1B4A741200A88A4D /* selected@2x.png */,
 				4E70CF781B4A1AE700A88A4D /* tabbar_background@2x.png */,
 				4E70CF791B4A1AE700A88A4D /* tabbar_slider@2x.png */,
 			);
@@ -192,23 +219,14 @@
 				4E70CF9F1B4BA0E600A88A4D /* ViewController.h */,
 				4E70CFA01B4BA0E600A88A4D /* ViewController.m */,
 				4E70CFA11B4BA0E600A88A4D /* ViewController.xib */,
-				4E70CFA41B4BA1A300A88A4D /* SubCateViewController.h */,
-				4E70CFA51B4BA1A300A88A4D /* SubCateViewController.m */,
-				4E70CFA61B4BA1A300A88A4D /* SubCateViewController.xib */,
+				4ED874101B4DFF9300559DF3 /* SubCateViewController.h */,
+				4ED874111B4DFF9300559DF3 /* SubCateViewController.m */,
+				4E960BCA1B5763A00072DE54 /* timeViewController.h */,
+				4E960BCB1B5763A00072DE54 /* timeViewController.m */,
+				4E960BCC1B5763A00072DE54 /* timeViewController.xib */,
 			);
 			name = calendar;
 			path = eventCal;
-			sourceTree = "<group>";
-		};
-		4E70CFB11B4BBCD000A88A4D /* modle */ = {
-			isa = PBXGroup;
-			children = (
-				4E70CFB21B4BBCD000A88A4D /* Calendar.h */,
-				4E70CFB31B4BBCD000A88A4D /* Calendar.m */,
-				4E70CFB41B4BBCD000A88A4D /* Event.h */,
-				4E70CFB51B4BBCD000A88A4D /* Event.m */,
-			);
-			path = modle;
 			sourceTree = "<group>";
 		};
 		D7DDA6F11B44C5FB00B211C5 = {
@@ -381,14 +399,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ED5E85C1B549E4B00B5B715 /* Selected.png in Resources */,
 				D7DDA72B1B44C6F400B211C5 /* Images-2.xcassets in Resources */,
 				D7DDA70E1B44C5FB00B211C5 /* Images.xcassets in Resources */,
-				4E70CF7D1B4A741200A88A4D /* selected@2x.png in Resources */,
 				4E70CF7A1B4A1AE700A88A4D /* tabbar_background@2x.png in Resources */,
-				4E70CFA81B4BA1A300A88A4D /* SubCateViewController.xib in Resources */,
 				4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */,
+				4ED5E85D1B549E4B00B5B715 /* Unselected.png in Resources */,
 				4E70CFBC1B4BCD7D00A88A4D /* select.png in Resources */,
 				4E70CF7B1B4A1AE700A88A4D /* tabbar_slider@2x.png in Resources */,
+				4E960BCE1B5763A00072DE54 /* timeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,18 +425,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E70CFA71B4BA1A300A88A4D /* SubCateViewController.m in Sources */,
 				4E70CFA21B4BA0E600A88A4D /* ViewController.m in Sources */,
 				4E70CF6F1B4A176000A88A4D /* CalendarsViewController.m in Sources */,
+				4ED874121B4DFF9300559DF3 /* SubCateViewController.m in Sources */,
 				4E70CF751B4A186F00A88A4D /* SecondCarlendarViewController.m in Sources */,
 				D7DDA7031B44C5FB00B211C5 /* AppDelegate.m in Sources */,
 				4E2FD4D01B47C61E00DB7E11 /* CalendarView.m in Sources */,
-				4E70CFB71B4BBCD000A88A4D /* Event.m in Sources */,
+				4E80562C1B550D05004821EE /* Event.m in Sources */,
+				4ED5C17D1B4CBC18000BD500 /* DataClass.m in Sources */,
+				4E0991DA1B54AC1F00B4A739 /* Calendar.m in Sources */,
 				4E70CF991B4B8D8B00A88A4D /* UIFolderTableView.m in Sources */,
 				D7DDA7061B44C5FB00B211C5 /* calendar.xcdatamodeld in Sources */,
 				4E70CF981B4B8D8B00A88A4D /* FolderCoverView.m in Sources */,
-				4E70CFB61B4BBCD000A88A4D /* Calendar.m in Sources */,
 				4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */,
+				4E960BCD1B5763A00072DE54 /* timeViewController.m in Sources */,
+				4E0677EF1B53A65000CE0D8A /* calColorTableViewCell.m in Sources */,
 				D7DDA7001B44C5FB00B211C5 /* main.m in Sources */,
 				4E70CF721B4A177A00A88A4D /* AddCalendarsViewController.m in Sources */,
 				4E2FD4CD1B47C12E00DB7E11 /* pickView.m in Sources */,
@@ -472,6 +494,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -515,6 +539,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -533,8 +559,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = calendar/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -545,8 +573,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = calendar/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

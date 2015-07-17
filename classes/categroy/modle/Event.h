@@ -2,7 +2,7 @@
 //  Event.h
 //  calendar
 //
-//  Created by 晓东 on 15/7/7.
+//  Created by 晓东 on 15/7/14.
 //  Copyright (c) 2015年 APPXY. All rights reserved.
 //
 
@@ -13,13 +13,12 @@
 
 @interface Event : NSManagedObject
 
-@property (nonatomic, retain) NSString * date;
-@property (nonatomic, retain) NSString * endTime;
-@property (nonatomic, retain) NSString * eventColor;
+@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSDate * endTime;
 @property (nonatomic, retain) NSString * eventLocal;
 @property (nonatomic, retain) NSString * eventName;
 @property (nonatomic, retain) NSString * eventNote;
-@property (nonatomic, retain) NSString * startTime;
+@property (nonatomic, retain) NSDate * startTime;
 @property (nonatomic, retain) Calendar *eventCalendar;
 
 @end

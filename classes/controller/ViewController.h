@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UIFolderTableView.h"
+#import "Event.h"
 @interface ViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIFolderTableView *tableView;
-
+@property (strong, nonatomic) Event* eventName;
 @end
