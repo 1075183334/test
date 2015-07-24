@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol timeViewDelegate <NSObject>
+
+-(void)returnTime:(NSString*)timeString;
+
+@end
 @interface timeViewController : UIViewController
+
+@property(nonatomic,strong)id<timeViewDelegate>delegate;
+
+@property(nonatomic,copy)NSString* timeString;
 
 @end

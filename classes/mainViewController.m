@@ -16,6 +16,9 @@
 #import "Event.h"
 #import "AppDelegate.h"
 #import "ViewController.h"
+
+#define tableViewMargin 100
+
 @interface mainViewController ()<CalendarDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UIViewController* _currentViewController;
@@ -24,7 +27,7 @@
     CalendarsViewController * calendarsVic;
     NSDate* _date;
     AppDelegate* myappdelegate;
-
+    NSMutableArray* _allEventArray;
 }
 @property(nonatomic, strong)CalendarView* myCalendar;
 @property(nonatomic, strong)UITableView* table;
@@ -35,25 +38,38 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getData:_date];
-   
+    _dataMutableArr = [self returnNewDateArr:[NSMutableArray arrayWithArray:[self getData:_date]]];
      [self.table reloadData];
+     [self.myCalendar reload];
 }
+
+-(NSMutableArray*)returnNewDateArr:(NSMutableArray*)oldDateArr
+{
+    NSMutableArray* newDateArr = [[NSMutableArray alloc]init];
+    for (int i = 0; i < [oldDateArr count]; i++) {
+        Event* event = [oldDateArr objectAtIndex:i];
+        if ([event.eventCalendar.calCheck isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            [newDateArr addObject:event];
+        }
+    }
+    return newDateArr;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-     _editVc = [[EditViewController alloc]init];
-    self.view.backgroundColor = [UIColor whiteColor];
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    _allEventArray                         = [[NSMutableArray alloc]init];
+    self.view.backgroundColor              = [UIColor whiteColor];
+    UIButton* btn                          = [UIButton buttonWithType:UIButtonTypeContactAdd];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
     [btn addTarget:self action:@selector(EditClick) forControlEvents:UIControlEventTouchUpInside];
-    _dataMutableArr = [[NSMutableArray alloc]init];
-    _date = [[NSDate alloc]init];
-    myappdelegate = [UIApplication sharedApplication].delegate;
-    calendarsVic = [[CalendarsViewController alloc]init];
+    _dataMutableArr                        = [[NSMutableArray alloc]init];
+    _date                                  = [[NSDate alloc]init];
+    myappdelegate                          = [UIApplication sharedApplication].delegate;
+    calendarsVic                           = [[CalendarsViewController alloc]init];
     [self createCalendar];
     [self createTableView];
     [self createChildVic];
-   
 }
 
 -(void)EditClick
@@ -87,9 +103,11 @@
 
 -(void)showToday
 {
-    TodayViewController* today = [[TodayViewController alloc]init];
-    [self.navigationController pushViewController:today animated:YES];
-    
+    self.myCalendar.calendarDate = _date;
+//    _dataMutableArr = [NSMutableArray arrayWithArray:[self getData:_date]];
+    [self.table reloadData];
+    [self.myCalendar reload];
+
 }
 
 -(void)showCalendars
@@ -110,8 +128,8 @@
         components.second = 0;
         _date = [cale dateFromComponents:components];
         _dataMutableArr = [NSMutableArray arrayWithArray:[self getData:_date]];
-
-          NSLog(@"%@",_date);
+        NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:_date forKey:@"selectedDate"];
     }
     self.myCalendar.delegate = self;
 //    self.myCalendar.calendarDate = [NSDate date];
@@ -122,7 +140,7 @@
 
 -(void)createTableView
 {
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 340, self.view.bounds.size.width, self.view.bounds.size.height-340-30)];
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 320, self.view.bounds.size.width, self.view.bounds.size.height-350)];
     [self.view addSubview:self.table];
     
     self.table.delegate = self;
@@ -135,29 +153,26 @@
 
 -(void)dayChangedToDate:(NSDate *)selectedDate
 {
-    NSLog(@"%@",selectedDate);
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-//    NSString *strDate = [dateFormatter stringFromDate:selectedDate];
     _date = selectedDate;
      NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
     [defaults setObject:selectedDate forKey:@"selectedDate"];
-    
-    _dataMutableArr = [NSMutableArray arrayWithArray:[self getData:_date]];
+    _dataMutableArr = [self returnNewDateArr:[NSMutableArray arrayWithArray:[self getData:_date]]];
+//    [self getAllData:selectedDate];
     [self.table reloadData];
 }
 
 #pragma mark - uitableViewdelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 40;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Event* event = [_dataMutableArr objectAtIndex:indexPath.row];
-    _editVc.eventCal = event;
-
+   
+    _editVc                                = [[EditViewController alloc]init];
+     _editVc.eventCal = event;
     [self.navigationController pushViewController:_editVc animated:YES];
 }
 
@@ -175,15 +190,15 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];}
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if ([_dataMutableArr count]>0) {
+        
         Event* event = [_dataMutableArr objectAtIndex:indexPath.row];
         
-        cell.textLabel.text =[NSString stringWithFormat:@"%@",event.eventName];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",event.eventCalendar.calName];
-        UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-        lable.backgroundColor = [self returnColorWithString:event.eventCalendar.calColor];
-        [cell addSubview:lable];
-    }
-    
+             cell.textLabel.text =[NSString stringWithFormat:@"%@",event.eventName];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",event.eventCalendar.calName];
+            UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
+            lable.backgroundColor = [myappdelegate returnColorWithTag:[event.eventCalendar.calColor integerValue]];
+            [cell addSubview:lable];
+           }
     
      return cell;
 
@@ -206,6 +221,8 @@
      [_dataMutableArr removeObjectAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
+        [self.myCalendar reload];
+        
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert)
     {
@@ -214,10 +231,11 @@
     
 }
 
-- (NSArray*)getData:(NSDate*)newsId
+
+- (NSArray*)getData:(NSDate*)date
 {
-    NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"date == %@",newsId];
+    NSDate* nextDate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(startTime>=%@ and startTime<%@) or (endTime>=%@ and endTime<%@) or (startTime<%@ and endTime>%@) or (startTime = %@ and endTime = %@) or (startTime < %@ and endTime > %@)",date ,nextDate,date,nextDate,date,nextDate,date,nextDate,date,date];
     
     //首先你需要建立一个request
     NSFetchRequest * request = [[NSFetchRequest alloc] init];
@@ -226,74 +244,11 @@
     
     NSError *error = nil;
     NSArray *result = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-//    for (Event *info in result) {
-//    NSLog(@"result==%@  %@",info.date,info.eventName);
-//    }
-//    NSLog(@"%@",result);
+//        for (Event *info in result) {
+//        NSLog(@"result == %@ %@",info.date,info.eventName);
+//        }
+//        NSLog(@"%@",result);
     return result;
 }
 
-/**
- *  删除记录
- */
--(void)deleteData:(NSString*)str
-{
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:myappdelegate.managedObjectContext];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setIncludesPropertyValues:NO];
-    [request setEntity:entity];
-    NSError *error = nil;
-    NSArray *datas = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];
-    //    NSLog(@"%@",datas);
-    if (!error && datas && [datas count])
-    {
-        for (Event *obj in datas)
-        {
-            if ([obj.eventName isEqualToString:str])
-            {
-                NSLog(@"%@",obj.eventName);
-                [myappdelegate.managedObjectContext deleteObject:obj];
-            }
-            
-            
-        }
-        if (![myappdelegate.managedObjectContext save:&error])
-        {
-            NSLog(@"error:%@",error);
-        }
-    }
-}
-
-
--(UIColor*)returnColorWithString:(NSString*)string
-{
-    if ([string isEqualToString:@"UIDeviceWhiteColorSpace 0.333333 1"]) {
-        return [UIColor darkGrayColor];
-    }else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.666667 1"])
-    { return [UIColor lightGrayColor];
-    } else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.5 1"])
-    { return [UIColor grayColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 0 1"])
-    { return [UIColor redColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 0 1"])
-    { return [UIColor greenColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 0 1 1"])
-    { return [UIColor blueColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 1 1"])
-    { return [UIColor cyanColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 1 0 1"])
-    { return [UIColor yellowColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 1 1"])
-    { return [UIColor magentaColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0.5 0 1"])
-    { return [UIColor orangeColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.5 0 0.5 1"])
-    {   return [UIColor purpleColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.6 0.4 0.2 1"])
-    {   return [UIColor purpleColor];}
-    else return [UIColor whiteColor];
-    
-}
 @end

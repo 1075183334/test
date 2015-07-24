@@ -22,7 +22,7 @@
     {
         if (self.checkImage == nil) {
             self.checkImage = [[UIImageView alloc]initWithFrame:CGRectMake(270, 10, 20, 20)];
-            self.checkImage.image = [UIImage imageNamed:@"Selected"];
+            self.checkImage.image = [UIImage imageNamed:@"Selected.png"];
             [self addSubview:self.checkImage];
         }
         
@@ -33,7 +33,7 @@
 
 -(void)setChecked:(BOOL)checked{
     if (checked) {
-        self.checkImage.image = [UIImage imageNamed:@"Selected"];
+        self.checkImage.image = [UIImage imageNamed:@"Selected.png"];
     }
     else
     {

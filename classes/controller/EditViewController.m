@@ -12,9 +12,12 @@
 #import "Calendar.h"
 @interface EditViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    UITextView* _textView;
+    UITextView* _titleTextView;
+    UITextView* _noteTextView;
     ViewController* _viewVc;
     UILabel* _lable;
+    
+    BOOL _isShowNoteCell;
 }
 @property(nonatomic, strong)UITableView* tableView;
 
@@ -31,7 +34,6 @@
         _eventCal = nil;
     }
     _eventCal = eventCal;
-//    NSLog(@"\n%@  \n%@  \n%@",_eventCal.date,_eventCal.startTime,_eventCal.endTime);
     [self.tableView reloadData];
 }
 
@@ -39,7 +41,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     _lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-
+    _titleTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 100)];
+    _noteTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 70)];
+    _isShowNoteCell = NO;
     [self createTableView];
 }
 
@@ -65,19 +69,51 @@
     [self.navigationController pushViewController:viewVC animated:YES];
 }
 
+-(NSString*)changeDateToString:(NSDate*)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    return [dateFormatter stringFromDate:date];
+}
 
 
 #pragma mark - uitableViewdelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 100;
+        return 101;
     }
     if (indexPath.row == 1 ||indexPath.row ==2 ||indexPath.row == 4) {
         return 40;
     }
     if (indexPath.row == 3) {
-        return 100;
+        if(_isShowNoteCell)
+        {
+//             _noteTextView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 120);
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                
+                CGRect textFrame=[[_noteTextView layoutManager]usedRectForTextContainer:[_noteTextView textContainer]];
+             _noteTextView.frame = CGRectMake(5, 0, self.view.bounds.size.width-10, textFrame.size.height+17);
+
+                return  textFrame.size.height+18;
+                
+            }
+//                else {
+//                _noteTextView.frame = CGRectMake(5, 0, self.view.bounds.size.width-10, _noteTextView.contentSize.height);
+//                return  _noteTextView.contentSize.height+18;
+//            }
+            
+            _isShowNoteCell = NO;
+        }
+        else
+        {
+            [UIView animateWithDuration:0.5 animations:^{
+                _noteTextView.frame = CGRectMake(5, 0, self.view.bounds.size.width-10, 70);
+            }];
+              return 71;
+            _isShowNoteCell = YES;
+        }
     }
     return 80;
 }
@@ -90,45 +126,62 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
     static NSString *CellIdentifier = @"cell1";
     UITableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];}
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.clipsToBounds = YES;
+
     if (indexPath.row == 0) {
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 100)];
-        _textView.userInteractionEnabled = NO;
+        
+        _titleTextView.userInteractionEnabled = NO;
 //         NSLog(@"\n%@,\n%@,\n%@,\n%@",_eventCal.date,_eventCal.startTime,[NSDate dateWithTimeInterval:(24*60*60) sinceDate:_eventCal.date],_eventCal.endTime);
         if (_eventCal.eventName.length>0) {
-            if ([_eventCal.date isEqualToDate: _eventCal.startTime] && [[NSDate dateWithTimeInterval:(24*60*60) sinceDate:_eventCal.date] isEqualToDate: _eventCal.endTime]) {
-                _textView.text = [NSString stringWithFormat:@" %@ \n %@\n \n All Day",_eventCal.eventName,_eventCal.eventLocal];
-            }else
+            
+            if(_eventCal.eventAllday == 0)
             {
-            _textView.text = [NSString stringWithFormat:@" %@ \n %@\n \n %@ \n %@",_eventCal.eventName,_eventCal.eventLocal,[self changeDateDayToString:_eventCal.startTime],[self changeDateDayToString:_eventCal.endTime]];
-            }
-            _textView.font = [UIFont systemFontOfSize:15];
+                
+            
+            _titleTextView.text = [NSString stringWithFormat:@" %@ \n %@\n \n %@ \n %@",_eventCal.eventName,_eventCal.eventLocal,[self changeDateDayToString:_eventCal.startTime],[self changeDateDayToString:_eventCal.endTime]];
+            
+            _titleTextView.font = [UIFont systemFontOfSize:15];
+        }else
+        {
+            if ([_eventCal.startTime isEqualToDate:_eventCal.endTime]) {
+                _titleTextView.text = [NSString stringWithFormat:@" %@ \n %@\n \n All Day for %@ ",_eventCal.eventName,_eventCal.eventLocal,[self changeDateToString:_eventCal.startTime]];
+            }else
+            _titleTextView.text = [NSString stringWithFormat:@" %@ \n %@\n \n All Day for %@ \n %@",_eventCal.eventName,_eventCal.eventLocal,[self changeDateToString:_eventCal.startTime],[self changeDateToString:_eventCal.endTime]];
+            
+            _titleTextView.font = [UIFont systemFontOfSize:15];
+            
         }
-
-        _textView.autoresizesSubviews = YES;
-        [cell addSubview:_textView];
+        }
+        _titleTextView.autoresizesSubviews = YES;
+        [cell addSubview:_titleTextView];
     }
     else if (indexPath.row == 3) {
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 100)];
-        _textView.userInteractionEnabled = NO;
+        _noteTextView.userInteractionEnabled = NO;
         if (_eventCal.eventNote.length > 0) {
-            _textView.text = [NSString stringWithFormat:@" %@",_eventCal.eventNote];
-            _textView.font = [UIFont systemFontOfSize:15];
+            _noteTextView.text = _eventCal.eventNote?_eventCal.eventNote:_noteTextView.text;
+            _noteTextView.font = [UIFont systemFontOfSize:15];
+        }else
+        {
+            _noteTextView.text = @"No Note";
+            _noteTextView.font = [UIFont systemFontOfSize:15];
+
         }
         
-        _textView.autoresizesSubviews = YES;
-        [cell addSubview:_textView];
+        _noteTextView.autoresizesSubviews = YES;
+        [cell addSubview:_noteTextView];
     }
     else if (indexPath.row == 1)
     {
         cell.textLabel.text = @"Calendar";
         if (_eventCal.eventCalendar.calName.length > 0) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",_eventCal.eventCalendar.calName];
-            _lable.backgroundColor = [self returnColorWithString:_eventCal.eventCalendar.calColor];
+            _lable.backgroundColor = [appDelegate returnColorWithTag:[_eventCal.eventCalendar.calColor integerValue]];
             [cell addSubview:_lable];
         }else
         {
@@ -141,7 +194,7 @@
     else if (indexPath.row == 2)
     {
         cell.textLabel.text = @"Notification";
-        
+        cell.detailTextLabel.text = _eventCal.eventNotif;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     }
@@ -150,13 +203,21 @@
         cell.textLabel.text = @"Show all note";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    else
+    {
+        cell.textLabel.text = @"";
+    }
     return cell;
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    if (indexPath.row == 4) {
+        _isShowNoteCell = !_isShowNoteCell;
+        [tableView beginUpdates];
+        [tableView endUpdates];
+    }
 }
 
 - (NSArray*)getData:(NSString*)newsId
@@ -187,33 +248,5 @@
     return [dateFormatter stringFromDate:date];
 }
 
--(UIColor*)returnColorWithString:(NSString*)string
-{
-    if ([string isEqualToString:@"UIDeviceWhiteColorSpace 0.333333 1"]) {
-        return [UIColor darkGrayColor];
-    }else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.666667 1"])
-    { return [UIColor lightGrayColor];
-    } else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.5 1"])
-    { return [UIColor grayColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 0 1"])
-    { return [UIColor redColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 0 1"])
-    { return [UIColor greenColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 0 1 1"])
-    { return [UIColor blueColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 1 1"])
-    { return [UIColor cyanColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 1 0 1"])
-    { return [UIColor yellowColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 1 1"])
-    { return [UIColor magentaColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0.5 0 1"])
-    { return [UIColor orangeColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.5 0 0.5 1"])
-    {   return [UIColor purpleColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.6 0.4 0.2 1"])
-    {   return [UIColor purpleColor];}
-    else return [UIColor whiteColor];
-    
-}
+
 @end

@@ -15,4 +15,5 @@
 @end
 @interface calendarViewController : UIViewController
 @property(nonatomic, weak)id<calendarDelegate> delegate;
+@property(nonatomic, copy)NSString* colorString;
 @end

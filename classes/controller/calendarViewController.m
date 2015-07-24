@@ -20,6 +20,7 @@
 @end
 
 @implementation calendarViewController
+@synthesize colorString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +31,11 @@
     [self createTableView];
     [self showDataFromCoreData];
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(SaveBtn)];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+//    NSLog(@"%@",colorString);
 }
 
 -(void)SaveBtn
@@ -86,11 +92,17 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    
     cell.textLabel.text = [_DataMutableArr objectAtIndex:indexPath.row];
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
-
+    if (colorString) {
+        if ([colorString isEqualToString:[_DataMutableArr objectAtIndex:indexPath.row]]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
     UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(260, 15, 10, 10)];
-    lable.backgroundColor = [self returnColorWithString:[_ColorMutableArr objectAtIndex:indexPath.row]];
+    AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
+    lable.backgroundColor = [appDelegate returnColorWithTag:[[_ColorMutableArr objectAtIndex:indexPath.row]integerValue]];
     [cell addSubview:lable];
     
     return cell;
@@ -118,33 +130,5 @@
 }
 
 
--(UIColor*)returnColorWithString:(NSString*)string
-{
-    if ([string isEqualToString:@"UIDeviceWhiteColorSpace 0.333333 1"]) {
-        return [UIColor darkGrayColor];
-    }else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.666667 1"])
-    { return [UIColor lightGrayColor];
-    } else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.5 1"])
-    { return [UIColor grayColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 0 1"])
-    { return [UIColor redColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 0 1"])
-    { return [UIColor greenColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 0 1 1"])
-    { return [UIColor blueColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 1 1"])
-    { return [UIColor cyanColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 1 0 1"])
-    { return [UIColor yellowColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 1 1"])
-    { return [UIColor magentaColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0.5 0 1"])
-    { return [UIColor orangeColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.5 0 0.5 1"])
-    {   return [UIColor purpleColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.6 0.4 0.2 1"])
-    {   return [UIColor purpleColor];}
-    else return [UIColor whiteColor];
-    
-}
+
 @end

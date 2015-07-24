@@ -162,8 +162,8 @@
     
     // 透明变半透明
     [UIView animateWithDuration:duration animations:^{
-        self.top.cover.alpha = COVERALPHA;
-        self.bottom.cover.alpha = COVERALPHA;
+        self.top.cover.alpha = 0;
+        self.bottom.cover.alpha = 0;
     }];
     
     if (openBlock) openBlock(self.subClassContentView, duration, [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]);

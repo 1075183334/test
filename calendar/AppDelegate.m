@@ -15,7 +15,7 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize colorsArray;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -24,7 +24,19 @@
     self.window.rootViewController = nav;
     NSLog(@"%@",NSHomeDirectory());
     [self.window makeKeyAndVisible];
-    
+    colorsArray = [[NSMutableArray alloc] init];
+    [colorsArray addObject:[UIColor colorWithRed:67.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0]];
+    [colorsArray addObject:[UIColor colorWithRed:154.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.0]];
+    [colorsArray addObject:[UIColor colorWithRed:109/255.0 green:109/255.0 blue:109/255.0 alpha:1.0]];
+    [colorsArray addObject:[UIColor redColor]];
+    [colorsArray addObject:[UIColor greenColor]];
+    [colorsArray addObject:[UIColor blueColor]];
+    [colorsArray addObject:[UIColor colorWithRed:0/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+    [colorsArray addObject:[UIColor colorWithRed:255/255.0 green:0/255.0 blue:255/255.0 alpha:1.0]];
+    [colorsArray addObject:[UIColor orangeColor]];
+    [colorsArray addObject:[UIColor colorWithRed:108/255.0 green:0/255.0 blue:110/255.0 alpha:1.0]];
+    [colorsArray addObject:[UIColor brownColor]];
+    [colorsArray addObject:[UIColor yellowColor]];
     return YES;
 }
 
@@ -51,7 +63,10 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
-
+-(UIColor*)returnColorWithTag:(int)colorTag
+{
+    return [self.colorsArray objectAtIndex:colorTag];
+}
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;

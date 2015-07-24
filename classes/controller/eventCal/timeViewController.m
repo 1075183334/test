@@ -13,21 +13,46 @@
     NSArray* _timeArr;
 }
 @property (weak, nonatomic) IBOutlet UITableView *timeTable;
+
+
 @end
 
 @implementation timeViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    _timeArr = [NSArray arrayWithObjects:@"At time of event",@"5 minutes before",@"15 minutes before",@"1 hour before",@"1 day before", nil];
-    _timeTable.delegate = self;
-    _timeTable.dataSource = self;
+-(instancetype)init{
+    self = [super init];
+    
+      _timeArr = [NSArray arrayWithObjects:@"None",@"At time of event",@"5 minutes before",@"15 minutes before",@"1 hour before",@"1 day before", nil];
+    
+    return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)setTimeString:(NSString *)timeString
+{
+    if ([timeString isEqualToString:_timeString]) {
+        return;
+    }
+    _timeString = timeString;
+    NSLog(@"%d",[_timeArr indexOfObject:_timeString]);
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+  
+    _timeTable.delegate = self;
+    _timeTable.dataSource = self;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(DoneClick)];
+}
+
+
+-(void)DoneClick
+{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -50,16 +75,38 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"None";
+        cell.textLabel.text = [_timeArr objectAtIndex:0];
+        if ([_timeArr indexOfObject:_timeString] == 0) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
     if (indexPath.section == 1) {
-        cell.textLabel.text = [_timeArr objectAtIndex:indexPath.row];
+        cell.textLabel.text = [_timeArr objectAtIndex:indexPath.row+1];
+        if ([_timeArr indexOfObject:_timeString] == indexPath.row+1) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
     return cell;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {
+        NSArray *array = [tableView visibleCells];
+        for (UITableViewCell *cell in array) {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+            
+        }
+        UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        if ([_delegate respondsToSelector:@selector(returnTime:)]) {
+            [_delegate returnTime:[_timeArr objectAtIndex:0]];
+        }
+    }
+    
+    
      if (indexPath.section == 1)
      {
     NSArray *array = [tableView visibleCells];
@@ -69,6 +116,9 @@
     }
     UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-     }
+     
+    if ([_delegate respondsToSelector:@selector(returnTime:)]) {
+         [_delegate returnTime:[_timeArr objectAtIndex:indexPath.row+1]];
+    }}
 }
 @end

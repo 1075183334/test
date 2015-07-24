@@ -16,13 +16,10 @@
     int _current;
     int _old;
     NSString* _currentTitle;
-    NSMutableArray* _DataNutableArr;
     AppDelegate *appdelegate;
-    NSMutableArray* _colorMutableArr;
-    
     NSMutableArray *contacts;
     UIButton *button;
-    NSMutableArray* checkMutableArr;
+    NSMutableArray* _allDataMutableArr;
 }
 @property (strong,nonatomic)NSIndexPath *lastpath ;
 @property(nonatomic, strong)UITableView* tableView;
@@ -34,8 +31,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [_DataNutableArr removeAllObjects];
-    [_colorMutableArr removeAllObjects];
+    
     [self showDataFromCoreData];
     [self.tableView reloadData];
     [self tableViewCheckImage];
@@ -47,27 +43,53 @@
     self.title = @"Calendars";
     self.view.backgroundColor = [UIColor whiteColor];
     self.secondController = [[SecondCarlendarViewController alloc] init];
-    _DataNutableArr = [[NSMutableArray alloc]init];
-    _colorMutableArr = [[NSMutableArray alloc]init];
+    _allDataMutableArr = [[NSMutableArray alloc]init];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(showNextVic)];
     
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneBtn)];
-   
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.backgroundColor = [UIColor whiteColor];
+    button.frame = CGRectMake(0, 0, self.view.bounds.size.width, 40);
+
     [self createTable];
 
 }
 
 -(void)tableViewCheckImage
 {
+    
+    int count = 0;
     [contacts removeAllObjects];
     contacts = [NSMutableArray array];
-    for (int i = 0; i <[_DataNutableArr count]; i++) {
+    for (int i = 0; i <[_allDataMutableArr count]; i++) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setValue:@"NO" forKey:@"checked"];
-        [contacts addObject:dic];
-    }
+        Calendar* calendar = [_allDataMutableArr objectAtIndex:i];
+        if ([calendar.calCheck isEqualToNumber:[NSNumber numberWithBool:NO]]) {
+            [dic setValue:@"NO" forKey:@"checked"];
+        }
+        else
+        {
+            [dic setValue:@"YES" forKey:@"checked"];
+            count++;
 
+        }
+          [contacts addObject:dic];
+      
+        }
+    
+    if (count == [_allDataMutableArr count]) {
+        [button setTitle:@"取消" forState:UIControlStateSelected];
+        [button setSelected:YES];
+    }else
+    {
+        [button setTitle:@"全选" forState:UIControlStateNormal];
+        [button setSelected:NO];
+    }
 }
+
+
+
+
 
 - (void)allSelect:(UIButton*)sender{
     NSArray *anArrayOfIndexPath = [NSArray arrayWithArray:[_tableView indexPathsForVisibleRows]];
@@ -89,12 +111,14 @@
         for (NSDictionary *dic in contacts) {
             [dic setValue:@"YES" forKey:@"checked"];
         }
-        [(UIButton*)sender setTitle:@"取消" forState:UIControlStateNormal];
+        [(UIButton*)sender setTitle:@"取消" forState:UIControlStateSelected];
+        [sender setSelected:YES];
     }else{
         for (NSDictionary *dic in contacts) {
             [dic setValue:@"NO" forKey:@"checked"];
         }
         [(UIButton*)sender setTitle:@"全选" forState:UIControlStateNormal];
+        [sender setSelected:NO];
     }
     
 }
@@ -103,8 +127,8 @@
 -(void)doneBtn
 {
 //    NSLog(@"%@",contacts);
-    for (int i=0 ;i < [_DataNutableArr count] ; i++) {
-        Calendar* cal = [checkMutableArr objectAtIndex:i];
+    for (int i=0 ;i < [_allDataMutableArr count] ; i++) {
+        Calendar* cal = [_allDataMutableArr objectAtIndex:i];
         cal.calCheck = [NSNumber numberWithBool:[self returnBOOLWithCheck:[[contacts objectAtIndex:i] objectForKey:@"checked"]]];
     }
     [appdelegate saveContext];
@@ -166,11 +190,30 @@
         }else {
             [dic setObject:@"NO" forKey:@"checked"];
             [cell setChecked:NO];
+        }
         [self.tableView reloadData];
+        }
+    int YEScount = 0;
+    int NOcount = 0;
+    for (NSMutableDictionary* dic in contacts) {
         
-          
-            
-        }}
+        if ([[dic objectForKey:@"checked"] isEqualToString:@"NO"]) {
+            NOcount++;
+        }else
+        {
+            YEScount++;
+        }
+        if (NOcount < [contacts count]) {
+            [button setTitle:@"全选" forState:UIControlStateNormal];
+            [button setSelected:NO];
+        }
+        if (YEScount == [contacts count]) {
+            [button setTitle:@"取消" forState:UIControlStateSelected];
+            [button setSelected:YES];
+        }
+        
+        
+    }
     
 }
 
@@ -185,7 +228,7 @@
     
     else
     
-        return [_DataNutableArr count];
+        return [_allDataMutableArr count];
     
 }
 
@@ -197,6 +240,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"cell";
     calColorTableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -204,11 +248,8 @@
    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button setTitle:@"全选" forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor whiteColor];
-        button.frame = CGRectMake(0, 0, self.view.bounds.size.width, 40);
-        [button addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
+        
+                [button addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:button];
        
         
@@ -225,12 +266,10 @@
                     [dic setObject:@"YES" forKey:@"checked"];
                     [cell setChecked:YES];
                 }
-            
-       
-           
-            cell.textLabel.text = [_DataNutableArr objectAtIndex:indexPath.row];
+            Calendar* calendar = [_allDataMutableArr objectAtIndex:indexPath.row];
+            cell.textLabel.text = calendar.calName;
             UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-            lable.backgroundColor = [self returnColorWithString:[_colorMutableArr objectAtIndex:indexPath.row]];
+            lable.backgroundColor = [appdelegate returnColorWithTag:[calendar.calColor integerValue]];
             [cell addSubview:lable];
 
         }
@@ -249,41 +288,9 @@
     [fetchRequest setEntity:entity];
     NSError* error;
     NSArray *fetchedObjects = [appdelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    checkMutableArr = [NSMutableArray arrayWithArray:fetchedObjects];
-    for (Calendar *info in fetchedObjects) {
-        [_DataNutableArr addObject:info.calName];
-        [_colorMutableArr addObject:info.calColor];
-        
-    }
-}
+    _allDataMutableArr = [NSMutableArray arrayWithArray:fetchedObjects];
 
--(UIColor*)returnColorWithString:(NSString*)string
-{
-    if ([string isEqualToString:@"UIDeviceWhiteColorSpace 0.333333 1"]) {
-        return [UIColor darkGrayColor];
-    }else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.666667 1"])
-    { return [UIColor lightGrayColor];
-    } else if([string isEqualToString:@"UIDeviceWhiteColorSpace 0.5 1"])
-    { return [UIColor grayColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 0 1"])
-    { return [UIColor redColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 0 1"])
-    { return [UIColor greenColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 0 1 1"])
-    { return [UIColor blueColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0 1 1 1"])
-    { return [UIColor cyanColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 1 0 1"])
-    { return [UIColor yellowColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0 1 1"])
-    { return [UIColor magentaColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 1 0.5 0 1"])
-    { return [UIColor orangeColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.5 0 0.5 1"])
-    {   return [UIColor purpleColor];
-    }else if([string isEqualToString:@"UIDeviceRGBColorSpace 0.6 0.4 0.2 1"])
-    {   return [UIColor purpleColor];}
-    else return [UIColor whiteColor];
     
 }
+
 @end

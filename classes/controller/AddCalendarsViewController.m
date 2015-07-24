@@ -14,21 +14,15 @@
 //#import "AppDelegate.h"
 #import "DataClass.h"
 @interface AddCalendarsViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
-{
-    UIColor* _currentColor;
-    NSArray* _arrColor;
-    NSMutableArray* _dataArray;
-    NSString* _judgeString;
-    int _btnTag;
-}
+
 @property(nonatomic, strong)UITextField* text;
 @property(nonatomic, strong)UITableView* tableView;
 //@property(nonatomic, strong)AppDelegate* appdelegate;
-@property(nonatomic, strong)NSMutableArray* BtnArray;
 @end
 
 @implementation AddCalendarsViewController
-
+@synthesize editedCalendar;
+@synthesize selectedBtn;
 -(void)setBtnTag:(int)btnTag{
     
     if (_btnTag == btnTag) {
@@ -39,48 +33,9 @@
     
     
 }
--(void)setMethodString:(NSString *)methodString
-{
-    if ([_methodString isEqualToString:methodString]) {
-        return;
-    }
-    _methodString = methodString;
-    
-    if([_methodString isEqualToString:@"change"])
-    {
-        for (UIButton* btn in _BtnArray) {
-            [btn setSelected:NO];
-        }
-        [[_BtnArray objectAtIndex:_btnTag] setSelected:YES];
-    }
-}
-
--(void)setNameSring:(NSString *)nameSring
-{
-    if ([_nameSring isEqualToString:nameSring]) {
-        return;
-    }
-    _nameSring = nameSring;
-    
-     if([_methodString isEqualToString:@"add"])
-     {
-    _text.placeholder = @"Calendar Name";
-     }else
-         _text.placeholder = _nameSring;
-}
-
--(void)setMethodIndex:(int)methodIndex
-{
-    if (_methodIndex == methodIndex) {
-        return;
-    }
-    _methodIndex = methodIndex;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Add Calendar";
     self.view.backgroundColor  = [UIColor whiteColor];
 //    for (UIViewController *subVC in self.navigationController.viewControllers) {
 //        if ([subVC isKindOfClass:[CalendarsViewController class]]) {
@@ -88,16 +43,14 @@
 //        }
 //    }
 //    self.appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    
-    _BtnArray = [[NSMutableArray alloc]init];
     [self createTwobtn];
     [self createTable];
 }
 
+
 -(void)createTwobtn
 {
-    _arrColor = [NSArray arrayWithObjects:[UIColor darkGrayColor],[UIColor lightGrayColor],[UIColor grayColor],[UIColor redColor],[UIColor greenColor],[UIColor blueColor],[UIColor cyanColor],[UIColor yellowColor],[UIColor magentaColor],[UIColor orangeColor],[UIColor purpleColor],[UIColor brownColor], nil];
-    
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(CancelVic)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(SaveBtn)];
@@ -107,25 +60,50 @@
     _text.returnKeyType = UIReturnKeyDone;
     _text.delegate = self;
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField           // became first responder
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (self.methodString.length>0) {
-        _text.placeholder = @"Add Calendar";
-    }
-    if (self.nameSring.length>0) {
-        _text.placeholder = self.nameSring;
-    }
-    
+    [_text becomeFirstResponder];
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     return YES;
 }
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+  
+    _text.text = @"";
+    _text.placeholder = @"Calendar Name";
+
+    if(self.editedCalendar == nil)
+    {
+        self.title = @"Add Calendar";
+        _text.text = @"";
+        _btnTag = 0;
+    }
+    else
+    {
+        self.title = @"Edit Calendar";
+        _text.text = self.editedCalendar.calName;
+        _btnTag = [self.editedCalendar.calColor integerValue];
+    }
+    [self.tableView reloadData];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    self.editedCalendar = nil;
+    self.title = nil;
     _text.text = nil;
+    _btnTag = 0;
+    
 }
 -(void)createTable
 {
@@ -143,23 +121,23 @@
 
 -(void)SaveBtn
 {
-//    NSLog(@"%@===%@",_currentColor, self.text.text);
-    if ([self.delegate respondsToSelector:@selector(AddcalendarName:withColor:withMethod:withIndex:withBtnIndex:)])
+    BOOL isAdd = NO;
+    if(self.editedCalendar == nil)
     {
-       
-        [self.delegate AddcalendarName:self.text.text  withColor:_currentColor withMethod:_methodString withIndex:_methodIndex withBtnIndex:_btnTag];
-       
+        isAdd = YES;
+        self.editedCalendar = [NSEntityDescription insertNewObjectForEntityForName:@"Calendar" inManagedObjectContext:[DataClass shareDelegate].managedObjectContext];
     }
-    if ([_methodString isEqualToString:@"change"]) {
-        [self updateData:_nameSring withName:_text.text];
-        
+    self.editedCalendar.calName = _text.text;
+    self.editedCalendar.calColor = [NSString stringWithFormat:@"%d",_btnTag];
+    [[DataClass shareDelegate] saveContext];
+
+    if(!isAdd)
+    {
+        if ([self.delegate respondsToSelector:@selector(updatedCalendarObj:)])
+        {
+            [self.delegate updatedCalendarObj:self.editedCalendar];
+        }
     }
-    else{
-        
-        [self saveData];
-        
-    }
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -174,13 +152,11 @@
 }
 
 
-
-
-
-
-
 #pragma mark - UITableViewDataSource
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_text resignFirstResponder];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -212,7 +188,7 @@
         [cell addSubview:_text];
     }
     if (indexPath.section == 1) {
-        UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 200)];
+        UIView* view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 300)];
         [cell addSubview:view];
         [self createViewColor:view];
     }
@@ -227,41 +203,27 @@
     return NO;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [_dataArray addObject:textField.text];
-}
-/**
- * 
- + (UIColor *)blackColor;      // 0.0 white
- + (UIColor *)darkGrayColor;   // 0.333 white
- + (UIColor *)lightGrayColor;  // 0.667 white
- + (UIColor *)whiteColor;      // 1.0 white
- + (UIColor *)grayColor;       // 0.5 white
- + (UIColor *)redColor;        // 1.0, 0.0, 0.0 RGB
- + (UIColor *)greenColor;      // 0.0, 1.0, 0.0 RGB
- + (UIColor *)blueColor;       // 0.0, 0.0, 1.0 RGB
- + (UIColor *)cyanColor;       // 0.0, 1.0, 1.0 RGB
- + (UIColor *)yellowColor;     // 1.0, 1.0, 0.0 RGB
- + (UIColor *)magentaColor;    // 1.0, 0.0, 1.0 RGB
- + (UIColor *)orangeColor;     // 1.0, 0.5, 0.0 RGB
- + (UIColor *)purpleColor;     // 0.5, 0.0, 0.5 RGB
- + (UIColor *)brownColor;      // 0.6, 0.4, 0.2 RGB
- 
- */
 
 -(void)createViewColor:(UIView *)view
 {
-    
-    for (int i= 0; i<12; i++) {
+    AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
+    for (int i= 0; i<[appDelegate.colorsArray count]; i++) {
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         CGFloat colorW = 70;
         CGFloat colorH = 70;
-        btn.backgroundColor = [_arrColor objectAtIndex:i];
+        btn.backgroundColor = [appDelegate.colorsArray objectAtIndex:i];
         [btn setImage:[UIImage imageNamed:@"select"] forState:UIControlStateSelected];
         btn.frame = CGRectMake(marginColor+(marginColor+colorH)*(i%4), marginColor+(marginColor+colorH)*(i/4), colorW, colorH);
         btn.tag = i;
-        [self.BtnArray addObject:btn];
+        if(i == _btnTag)
+        {
+            btn.selected = YES;
+            self.selectedBtn = btn;
+        }
+        else
+        {
+            btn.selected = NO;
+        }
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:btn];
         
@@ -269,89 +231,15 @@
     }
 }
 
--(void)saveData
-{
-    Calendar *object=[NSEntityDescription insertNewObjectForEntityForName:@"Calendar" inManagedObjectContext:[DataClass shareDelegate].managedObjectContext];
-    
-//    [object setValue:_text.text forKey:@"calName"];
-//    [object setValue:[NSString stringWithFormat:@"%@",_currentColor] forKey:@"calColor"];
-    object.calName = _text.text;
-    object.calColor = [NSString stringWithFormat:@"%@",_currentColor];
-    object.calCheck =  [NSNumber numberWithBool:NO];
-    [[DataClass shareDelegate] saveContext];
-   
-}
-
-- (void)updateData:(NSString*)newsId withName:(NSString*)newName
-{
-    
-//    NSFetchRequest * requestEvent = [[NSFetchRequest alloc] init];
-//    [requestEvent setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:[DataClass shareDelegate].managedObjectContext]];
-//    NSArray *resultEvents = [[DataClass shareDelegate].managedObjectContext executeFetchRequest:requestEvent error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-//
-    
-    NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"calName like[cd] %@",newsId];
-    
-    //首先你需要建立一个request
-    NSFetchRequest * request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"Calendar" inManagedObjectContext:[DataClass shareDelegate].managedObjectContext]];
-    [request setPredicate:predicate];//这里相当于sqlite中的查询条件，具体格式参考苹果文档
-    
-    NSError *error = nil;
-    NSArray *result = [[DataClass shareDelegate].managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-    for (Calendar *info in result) {
-        info.calName = newName;
-        info.calColor = [NSString stringWithFormat:@"%@",_currentColor];
-//         NSLog(@"result==%@",info.calName);
-    }
-    
-    //保存
-    if ([[DataClass shareDelegate].managedObjectContext save:&error]) {
-        //更新成功
-        NSLog(@"更新成功");
-    }
-}
-//判断
-- (void)judgeData:(NSString*)oldName
-{
-    
-    NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"calName like[cd] %@",oldName];
-    
-    //首先你需要建立一个request
-    NSFetchRequest * request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"Calendar" inManagedObjectContext:[DataClass shareDelegate].managedObjectContext]];
-    [request setPredicate:predicate];//这里相当于sqlite中的查询条件，具体格式参考苹果文档
-    
-    NSError *error = nil;
-    NSArray *result = [[DataClass shareDelegate].managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-    for (Calendar *info in result) {
-        _judgeString = [NSString stringWithString:info.calName];
-    }
-    
-    //保存
-    if ([[DataClass shareDelegate].managedObjectContext save:&error]) {
-        //更新成功
-//        NSLog(@"更新成功");
-    }
-}
 
 
 -(void)btnClick:(UIButton*)btn
 {
-    
-    
-    for (UIButton* btn in _BtnArray) {
-        [btn setSelected:NO];
-    }
+    selectedBtn.selected = NO;
     [btn setSelected:YES];
-    _currentColor = [_arrColor objectAtIndex:btn.tag];
-//    NSLog(@"%@",btn.tag);
+    selectedBtn = btn;
     _btnTag = btn.tag;
-    
 }
-
 
 
 

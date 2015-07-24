@@ -19,4 +19,5 @@
 
 @property(nonatomic, assign)id<secondCarlendarDelegate> secondDelegate;
 @property(nonatomic,assign) id<AddCalendarDelegate>delegate;
+@property (nonatomic, strong) NSMutableArray            * colorsArray;
 @end

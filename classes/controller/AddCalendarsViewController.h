@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Calendar;
 
 @protocol AddCalendarDelegate <NSObject>
 
--(void)AddcalendarName:(NSString*)name withColor:(UIColor *)color withMethod:(NSString* )method withIndex:(int)index withBtnIndex:(int)btnIndex;
+-(void)updatedCalendarObj:(Calendar *)calendarEdited;
 
 @end
 
 @interface AddCalendarsViewController : UIViewController
 @property(nonatomic, strong)id<AddCalendarDelegate> delegate;
-@property(nonatomic, copy)NSString* methodString;
-@property(nonatomic, copy)NSString* nameSring;
-@property(nonatomic, assign)int methodIndex;
+@property(nonatomic, strong) Calendar* editedCalendar;
 @property(nonatomic, assign)int btnTag;
+@property (nonatomic, strong) UIButton  * selectedBtn;
 @end

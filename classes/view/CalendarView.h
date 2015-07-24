@@ -19,6 +19,7 @@
 @property (nonatomic,weak) id<CalendarDelegate> delegate;
 @property (nonatomic,weak) id<CalendarDataSource> datasource;
 
+@property (nonatomic,strong)NSDate* selectedDate;
 
 // Font
 @property (nonatomic, strong) UIFont * defaultFont;
@@ -56,7 +57,9 @@
 @property (nonatomic, assign) BOOL keepSelDayWhenMonthChange;
 @property (nonatomic, assign) BOOL hideMonthLabel;
 
+@property (nonatomic, assign) BOOL isHaveEvent;
 
+-(void) reload;
 
 @end
 
@@ -67,6 +70,7 @@
 -(void)dayChangedToDate:(NSDate *)selectedDate;
 
 @optional
+
 -(void)setHeightNeeded:(NSInteger)heightNeeded;
 -(void)setMonthLabel:(NSString *)monthLabel;
 -(void)setEnabledForPrevMonthButton:(BOOL)enablePrev nextMonthButton:(BOOL)enableNext;
