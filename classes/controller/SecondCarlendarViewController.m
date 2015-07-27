@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "Calendar.h"
 #import "PublicClass.h"
+#import "colorTableViewCell.h"
 @interface SecondCarlendarViewController ()<UITableViewDataSource,UITableViewDelegate,AddCalendarDelegate>
 {
     NSMutableArray* allCalendarsArray;
@@ -109,19 +110,19 @@
 {
     AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
     static NSString *CellIdentifier = @"cell";
-    UITableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    colorTableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"colorTableViewCell" owner:nil options:nil];
+        //第一个对象就是CustomCell了
+        cell = [nib objectAtIndex:0];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    cell.textLabel.textColor = [UIColor blackColor];
     Calendar * cellCalendar = [allCalendarsArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = cellCalendar.calName;
 
-    UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-    lable.backgroundColor = [appDelegate returnColorWithTag:[cellCalendar.calColor integerValue]];
-    [cell addSubview:lable];
+    cell.calCellNameView.text             = [NSString stringWithFormat:@"%@",cellCalendar.calName];
+//    cell.calCellColorNameView.text        = [NSString stringWithFormat:@"%@",cellCalendar.calName];
+    cell.calCellColorView.backgroundColor = [appDelegate returnColorWithTag:[cellCalendar.calColor intValue]];
     return cell;
 }
 

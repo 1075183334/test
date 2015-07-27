@@ -89,13 +89,13 @@
 -(NSInteger)updatePickHourData
 {
     
-    NSInteger hour =[[NSString stringWithFormat:@"%d",[self selectedRowInComponent:0]+1] integerValue];
+    NSInteger hour =[[NSString stringWithFormat:@"%ld",[self selectedRowInComponent:0]+1] integerValue];
 //    NSLog(@"%d",hour);
     return hour;
 }
 -(NSInteger)updatePickMinData
 {
-     NSInteger min =[[NSString stringWithFormat:@"%d",[self selectedRowInComponent:1]+1] integerValue];
+     NSInteger min =[[NSString stringWithFormat:@"%ld",[self selectedRowInComponent:1]+1] integerValue];
 //    NSLog(@"%d",min);
 
     return min;

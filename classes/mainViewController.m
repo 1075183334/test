@@ -16,7 +16,7 @@
 #import "Event.h"
 #import "AppDelegate.h"
 #import "ViewController.h"
-
+#import "colorTableViewCell.h"
 #define tableViewMargin 100
 
 @interface mainViewController ()<CalendarDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -28,6 +28,8 @@
     NSDate* _date;
     AppDelegate* myappdelegate;
     NSMutableArray* _allEventArray;
+    
+    float _tableViewheight;
 }
 @property(nonatomic, strong)CalendarView* myCalendar;
 @property(nonatomic, strong)UITableView* table;
@@ -81,15 +83,15 @@
 -(void)createChildVic
 {
     
-    UIButton* todayBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-30, self.view.bounds.size.width*0.5, 30)];
+    UIButton* todayBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width*0.5, 40)];
     [todayBtn setTitle:@"Today" forState:UIControlStateNormal];
     [todayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    todayBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    todayBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     todayBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    UIButton* calendarsBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*0.5, self.view.bounds.size.height-30, self.view.bounds.size.width*0.5, 30)];
+    UIButton* calendarsBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*0.5, self.view.bounds.size.height-40, self.view.bounds.size.width*0.5, 40)];
     [calendarsBtn setTitle:@"Calendar" forState:UIControlStateNormal];
     [calendarsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    calendarsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    calendarsBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     calendarsBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     [todayBtn addTarget:self action:@selector(showToday) forControlEvents:UIControlEventTouchUpInside];
     
@@ -104,7 +106,6 @@
 -(void)showToday
 {
     self.myCalendar.calendarDate = _date;
-//    _dataMutableArr = [NSMutableArray arrayWithArray:[self getData:_date]];
     [self.table reloadData];
     [self.myCalendar reload];
 
@@ -117,7 +118,7 @@
 }
 -(void)createCalendar
 {
-    self.myCalendar = [[CalendarView alloc]initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, 300)];
+    self.myCalendar = [[CalendarView alloc]init];
   
     if (_date) {
         NSCalendar* cale = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -132,17 +133,16 @@
         [defaults setObject:_date forKey:@"selectedDate"];
     }
     self.myCalendar.delegate = self;
-//    self.myCalendar.calendarDate = [NSDate date];
-    
     [self.view addSubview:self.myCalendar];
     
 }
 
 -(void)createTableView
 {
-    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 320, self.view.bounds.size.width, self.view.bounds.size.height-350)];
+    self.table = [[UITableView alloc]init];
     [self.view addSubview:self.table];
-    
+    [_table setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+
     self.table.delegate = self;
     self.table.dataSource = self;
     
@@ -157,8 +157,14 @@
      NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
     [defaults setObject:selectedDate forKey:@"selectedDate"];
     _dataMutableArr = [self returnNewDateArr:[NSMutableArray arrayWithArray:[self getData:_date]]];
-//    [self getAllData:selectedDate];
     [self.table reloadData];
+}
+
+-(void)HeightOfCalendar:(float)Height
+{
+//    NSLog(@"height == %f",Height);
+    _tableViewheight = Height;
+    self.table.frame = CGRectMake(0, Height+130, self.view.frame.size.width,  self.view.bounds.size.height-350);
 }
 
 #pragma mark - uitableViewdelegate
@@ -170,9 +176,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Event* event = [_dataMutableArr objectAtIndex:indexPath.row];
-   
     _editVc                                = [[EditViewController alloc]init];
-     _editVc.eventCal = event;
+    _editVc.eventCal = event;
     [self.navigationController pushViewController:_editVc animated:YES];
 }
 
@@ -185,19 +190,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"cell";
-    UITableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    colorTableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];}
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"colorTableViewCell" owner:nil options:nil];
+        //第一个对象就是CustomCell了
+        cell = [nib objectAtIndex:0];
+
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if ([_dataMutableArr count]>0) {
         
         Event* event = [_dataMutableArr objectAtIndex:indexPath.row];
-        
-             cell.textLabel.text =[NSString stringWithFormat:@"%@",event.eventName];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",event.eventCalendar.calName];
-            UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-            lable.backgroundColor = [myappdelegate returnColorWithTag:[event.eventCalendar.calColor integerValue]];
-            [cell addSubview:lable];
+
+        cell.calCellNameView.text             = [NSString stringWithFormat:@"%@",event.eventName];
+        cell.calCellColorNameView.text        = [NSString stringWithFormat:@"%@",event.eventCalendar.calName];
+        cell.calCellColorView.backgroundColor = [myappdelegate returnColorWithTag:[event.eventCalendar.calColor intValue]];
+       
            }
     
      return cell;
@@ -222,13 +230,8 @@
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [self.myCalendar reload];
-        
     }
-    else if (editingStyle == UITableViewCellEditingStyleInsert)
-    {
-        
-    }
-    
+
 }
 
 
@@ -240,14 +243,11 @@
     //首先你需要建立一个request
     NSFetchRequest * request = [[NSFetchRequest alloc] init];
     [request setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:myappdelegate.managedObjectContext]];
-    [request setPredicate:predicate];//这里相当于sqlite中的查询条件，具体格式参考苹果文档
+    [request setPredicate:predicate];//这里相当于sqlite中的查询条件
     
     NSError *error = nil;
     NSArray *result = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-//        for (Event *info in result) {
-//        NSLog(@"result == %@ %@",info.date,info.eventName);
-//        }
-//        NSLog(@"%@",result);
+
     return result;
 }
 

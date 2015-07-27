@@ -14,7 +14,9 @@
 //#import "AppDelegate.h"
 #import "DataClass.h"
 @interface AddCalendarsViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
-
+{
+    UIAlertView* _alert;
+}
 @property(nonatomic, strong)UITextField* text;
 @property(nonatomic, strong)UITableView* tableView;
 //@property(nonatomic, strong)AppDelegate* appdelegate;
@@ -45,6 +47,12 @@
 //    self.appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [self createTwobtn];
     [self createTable];
+    _alert = [[UIAlertView alloc] initWithTitle:@"请输入calName"
+                                        message:nil
+                                       delegate:self
+                              cancelButtonTitle:nil
+                              otherButtonTitles:@"确定",nil];
+    [self.view addSubview:_alert];
 }
 
 
@@ -55,7 +63,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(SaveBtn)];
     
-    _text = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    _text = [[UITextField alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width-20, 30)];
     _text.keyboardType = UIKeyboardTypeNamePhonePad;//键盘显示类型
     _text.returnKeyType = UIReturnKeyDone;
     _text.delegate = self;
@@ -93,7 +101,7 @@
     {
         self.title = @"Edit Calendar";
         _text.text = self.editedCalendar.calName;
-        _btnTag = [self.editedCalendar.calColor integerValue];
+        _btnTag = [self.editedCalendar.calColor intValue];
     }
     [self.tableView reloadData];
 }
@@ -121,6 +129,11 @@
 
 -(void)SaveBtn
 {
+    if (_text.text.length == 0) {
+        [_alert show];
+        return;
+    }
+    
     BOOL isAdd = NO;
     if(self.editedCalendar == nil)
     {
@@ -194,6 +207,16 @@
     }
     
     return cell;
+}
+
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString* string ;
+    if (section == 1) {
+        string = @"Color";
+    }
+    return string;
 }
 
 

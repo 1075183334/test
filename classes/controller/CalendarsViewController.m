@@ -10,7 +10,7 @@
 #import "SecondCarlendarViewController.h"
 #import "AppDelegate.h"
 #import "Calendar.h"
-#import "calColorTableViewCell.h"
+#import "CalColorTableCell.h"
 @interface CalendarsViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     int _current;
@@ -47,7 +47,13 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(showNextVic)];
     
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneBtn)];
-    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+    
+    [button setTitle:@"Cancel" forState:UIControlStateNormal];
+    [button setTitle:@"All" forState:UIControlStateSelected];
+
     button.backgroundColor = [UIColor whiteColor];
     button.frame = CGRectMake(0, 0, self.view.bounds.size.width, 40);
 
@@ -57,34 +63,16 @@
 
 -(void)tableViewCheckImage
 {
-    
-    int count = 0;
     [contacts removeAllObjects];
     contacts = [NSMutableArray array];
     for (int i = 0; i <[_allDataMutableArr count]; i++) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         Calendar* calendar = [_allDataMutableArr objectAtIndex:i];
-        if ([calendar.calCheck isEqualToNumber:[NSNumber numberWithBool:NO]]) {
-            [dic setValue:@"NO" forKey:@"checked"];
+        if ([calendar.calCheck boolValue]) {
+            [contacts addObject:calendar];
         }
-        else
-        {
-            [dic setValue:@"YES" forKey:@"checked"];
-            count++;
-
-        }
-          [contacts addObject:dic];
-      
-        }
-    
-    if (count == [_allDataMutableArr count]) {
-        [button setTitle:@"取消" forState:UIControlStateSelected];
-        [button setSelected:YES];
-    }else
-    {
-        [button setTitle:@"全选" forState:UIControlStateNormal];
-        [button setSelected:NO];
     }
+    
+    button.selected = (contacts.count != _allDataMutableArr.count);
 }
 
 
@@ -92,44 +80,28 @@
 
 
 - (void)allSelect:(UIButton*)sender{
-    NSArray *anArrayOfIndexPath = [NSArray arrayWithArray:[_tableView indexPathsForVisibleRows]];
-    for (int i = 0; i < [anArrayOfIndexPath count]; i++) {
-        NSIndexPath *indexPath= [anArrayOfIndexPath objectAtIndex:i];
-        calColorTableViewCell *cell = (calColorTableViewCell*)[_tableView cellForRowAtIndexPath:indexPath];
-        NSUInteger row = [indexPath row];
-//        NSLog(@"%lu",(unsigned long)row);
-        NSMutableDictionary *dic = [contacts objectAtIndex:row];
-        if ([[[(UIButton*)sender titleLabel] text] isEqualToString:@"全选"]) {
-            [dic setObject:@"YES" forKey:@"checked"];
-            [cell setChecked:YES];
-        }else {
-            [dic setObject:@"NO" forKey:@"checked"];
-            [cell setChecked:NO];
-        }
-    }
-    if ([[[(UIButton*)sender titleLabel] text] isEqualToString:@"全选"]){
-        for (NSDictionary *dic in contacts) {
-            [dic setValue:@"YES" forKey:@"checked"];
-        }
-        [(UIButton*)sender setTitle:@"取消" forState:UIControlStateSelected];
-        [sender setSelected:YES];
+    if (contacts.count == _allDataMutableArr.count) {
+        [contacts removeAllObjects];
+        button.selected = YES;
     }else{
-        for (NSDictionary *dic in contacts) {
-            [dic setValue:@"NO" forKey:@"checked"];
-        }
-        [(UIButton*)sender setTitle:@"全选" forState:UIControlStateNormal];
-        [sender setSelected:NO];
+        [contacts removeAllObjects];
+        [contacts addObjectsFromArray:_allDataMutableArr];
+        button.selected = NO;
     }
+    
+    [_tableView reloadData];
     
 }
 
 
 -(void)doneBtn
 {
-//    NSLog(@"%@",contacts);
-    for (int i=0 ;i < [_allDataMutableArr count] ; i++) {
-        Calendar* cal = [_allDataMutableArr objectAtIndex:i];
-        cal.calCheck = [NSNumber numberWithBool:[self returnBOOLWithCheck:[[contacts objectAtIndex:i] objectForKey:@"checked"]]];
+    for (Calendar *calendar in _allDataMutableArr) {
+        if ([contacts containsObject:calendar]) {
+            calendar.calCheck = @(YES);
+        }else{
+            calendar.calCheck = @(NO);
+        }
     }
     [appdelegate saveContext];
 
@@ -179,40 +151,20 @@
        
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        calColorTableViewCell *cell = (calColorTableViewCell*)[_tableView cellForRowAtIndexPath:indexPath];
-        
-        NSUInteger row = [indexPath row];
-        NSMutableDictionary *dic = [contacts objectAtIndex:row];
-        if ([[dic objectForKey:@"checked"] isEqualToString:@"NO"]) {
-            [dic setObject:@"YES" forKey:@"checked"];
-            [cell setChecked:YES];
-        }else {
-            [dic setObject:@"NO" forKey:@"checked"];
-            [cell setChecked:NO];
+        CalColorTableCell *cell = (CalColorTableCell*)[_tableView cellForRowAtIndexPath:indexPath];
+        if (cell.checked) {
+            cell.checked = NO;
+            if ([contacts containsObject:cell.calendar]) {
+                [contacts removeObject:cell.calendar];
+            }
+        }else{
+            cell.checked = YES;
+            if (![contacts containsObject:cell.calendar]) {
+                [contacts addObject:cell.calendar];
+            }
         }
-        [self.tableView reloadData];
-        }
-    int YEScount = 0;
-    int NOcount = 0;
-    for (NSMutableDictionary* dic in contacts) {
-        
-        if ([[dic objectForKey:@"checked"] isEqualToString:@"NO"]) {
-            NOcount++;
-        }else
-        {
-            YEScount++;
-        }
-        if (NOcount < [contacts count]) {
-            [button setTitle:@"全选" forState:UIControlStateNormal];
-            [button setSelected:NO];
-        }
-        if (YEScount == [contacts count]) {
-            [button setTitle:@"取消" forState:UIControlStateSelected];
-            [button setSelected:YES];
-        }
-        
-        
+        [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        button.selected = (contacts.count != _allDataMutableArr.count);
     }
     
 }
@@ -242,37 +194,27 @@
 {
     
     static NSString *CellIdentifier = @"cell";
-    calColorTableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CalColorTableCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[calColorTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];}
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"CalColorTableCell" owner:nil options:nil] lastObject];
+       }
    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         
-                [button addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:button];
        
         
     }
     if (indexPath.section == 1) {
-        NSUInteger row = [indexPath row];
-        if ([contacts count]>0) {
-                NSMutableDictionary *dic = [contacts objectAtIndex:row];
-                if ([[dic objectForKey:@"checked"] isEqualToString:@"NO"]) {
-                    [dic setObject:@"NO" forKey:@"checked"];
-                    [cell setChecked:NO];
-                    
-                }else {
-                    [dic setObject:@"YES" forKey:@"checked"];
-                    [cell setChecked:YES];
-                }
-            Calendar* calendar = [_allDataMutableArr objectAtIndex:indexPath.row];
-            cell.textLabel.text = calendar.calName;
-            UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-            lable.backgroundColor = [appdelegate returnColorWithTag:[calendar.calColor integerValue]];
-            [cell addSubview:lable];
-
-        }
+        Calendar* calendar = [_allDataMutableArr objectAtIndex:indexPath.row];
+        
+        BOOL checked = [contacts containsObject:calendar];
+        [cell setChecked:checked];
+        cell.calendar = calendar;
+        cell.calColorNameCellLable.text = calendar.calName;
+        cell.calColorCellView.backgroundColor = [appdelegate returnColorWithTag:[calendar.calColor intValue]];
        
     }
     

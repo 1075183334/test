@@ -10,6 +10,7 @@
 #import "Calendar.h"
 #import "timeViewController.h"
 #import "calendarViewController.h"
+#import "colorTableViewCell.h"
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate,UIFolderTableViewDelegate,UITextViewDelegate,UITextFieldDelegate,calendarDelegate,timeViewDelegate>
 {
     NSMutableArray *_dataList;
@@ -188,7 +189,7 @@
 
 -(void)createTextView
 {
-    _noteTextView                = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
+    _noteTextView                = [[UITextView alloc]initWithFrame:CGRectMake(10, 0, self.tableView.bounds.size.width-20, 120)];
     _noteTextView.delegate       = self;
     _noteTextView.scrollEnabled  = YES;
     _noteTextView.returnKeyType  = UIReturnKeyDone;
@@ -219,14 +220,14 @@
 }
 -(void)createNameText
 {
-    _nameText               = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
-    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 25)];
-    paddingView.text = @" ";
-    paddingView.textColor = [UIColor darkGrayColor];
-    paddingView.backgroundColor = [UIColor clearColor];
-    _nameText.leftView = paddingView;
-    _nameText.leftViewMode = UITextFieldViewModeAlways;
-    _nameText.placeholder   = @"  Event Name";
+    _nameText               = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, self.tableView.bounds.size.width-20, 40)];
+//    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 25)];
+//    paddingView.text = @" ";
+//    paddingView.textColor = [UIColor darkGrayColor];
+//    paddingView.backgroundColor = [UIColor clearColor];
+//    _nameText.leftView = paddingView;
+//    _nameText.leftViewMode = UITextFieldViewModeAlways;
+    _nameText.placeholder   = @"Event Name";
     _nameText.delegate      = self;
     _nameText.keyboardType  = UIKeyboardTypeNamePhonePad;//键盘显示类型
     _nameText.returnKeyType = UIReturnKeyDone;
@@ -234,13 +235,13 @@
 
 -(void)createLocalText
 {
-    _localText =[[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
-    _localText.placeholder   = @" Location";
-    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 25)];
-    paddingView.text = @" ";
-    paddingView.textColor = [UIColor darkGrayColor];
-    paddingView.backgroundColor = [UIColor clearColor];
-    _localText.leftView = paddingView;
+    _localText =[[UITextField alloc]initWithFrame:CGRectMake(15, 0, self.tableView.bounds.size.width-20, 40)];
+    _localText.placeholder   = @"Location";
+//    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 25)];
+//    paddingView.text = @" ";
+//    paddingView.textColor = [UIColor darkGrayColor];
+//    paddingView.backgroundColor = [UIColor clearColor];
+//    _localText.leftView = paddingView;
     _localText.leftViewMode = UITextFieldViewModeAlways;
     _localText.delegate      = self;
     _localText.keyboardType  = UIKeyboardTypeNamePhonePad;
@@ -293,7 +294,7 @@
             return 40;
         }
         else
-            return 100;
+            return 120;
     }
     return 40;
     
@@ -346,7 +347,7 @@
     cell.clipsToBounds = YES;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            _nameString>0?(_nameText.text = _nameString):(_nameText.placeholder = @" New Event");
+            _nameString>0?(_nameText.text = _nameString):(_nameText.placeholder = @"New Event");
             [cell addSubview:_nameText];
         }else
         {
@@ -368,9 +369,9 @@
             }
             else
             {
-            
                 _sw.isOn?(lblStartTime.text = [self changeDateToString:_eventName.startTime]):(lblStartTime.text = [self changeDateDayToString:_eventName.startTime]);
             }
+            
             cellStartTime.selectionStyle = UITableViewCellSelectionStyleNone;
             return cellStartTime;
             
@@ -379,7 +380,6 @@
             if(_eventName == nil)
             {
                 _sw.isOn?(lblEndTime.text = [self changeDateToString:endDatePicker.date?endDatePicker.date:[self currentDateString]]):(lblEndTime.text = [self changeDateDayToString:endDatePicker.date?endDatePicker.date:[self currentDateString]]);
-               
             }
             else
             {
@@ -397,6 +397,7 @@
         cell.textLabel.text = @"All-day";
             cell.detailTextLabel.text = nil;
             [cell addSubview:_sw];
+
         }}
     if (indexPath.section == 2) {
 
@@ -405,34 +406,37 @@
     }
     if (indexPath.section == 3) {
         if (indexPath.row == 0) {
-        cell.textLabel.text  = @"Calendar";
+            
+            colorTableViewCell* cell = [[[NSBundle mainBundle]loadNibNamed:@"colorTableViewCell" owner:nil options:nil]lastObject];
+        cell.calCellNameView.text  = @"Calendar";
             if (_title.length == 0) {
-                
                 if (_eventName.eventCalendar.calName.length > 0)
                 {
-        cell.detailTextLabel.text = _eventName.eventCalendar.calName;
+        cell.calCellColorNameView.text = _eventName.eventCalendar.calName;
                     _colorNameString = _eventName.eventCalendar.calName;
                 }
             }else
             {
-        cell.detailTextLabel.text = _title;
+        cell.calCellColorNameView.text = _title;
                 
             }
             if (_newColor.length == 0) {
                 if (_eventName.eventCalendar.calColor.length > 0) {
-                    _lable.backgroundColor = [appDleegate returnColorWithTag:[_eventName.eventCalendar.calColor integerValue]];
+                    
+                    cell.calCellColorView.backgroundColor = [appDleegate returnColorWithTag:[_eventName.eventCalendar.calColor intValue]];
+                 
                 }
             }else
             {
-                _lable.backgroundColor = [appDleegate returnColorWithTag:[_newColor integerValue]];
-
+               cell.calCellColorView.backgroundColor = [appDleegate returnColorWithTag:[_newColor intValue]];
+                
             }
             
-            [cell addSubview:_lable];
+            return cell;
         }else{
             
             _noteTextView.text = _eventName.eventNote?_eventName.eventNote:_noteTextView.text;
-            
+            _noteTextView.font = [UIFont systemFontOfSize:15];
             [cell addSubview:_noteTextView];
             
         }}
@@ -631,9 +635,7 @@
 
     NSError *error           = nil;
     NSArray *result          = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-//    for (Calendar *info in result) {
-//    NSLog(@"result==%@  %@",info.calName,info.calColor);
-//    }
+
     if (result.count > 0) {
         return result[0];
     }
@@ -641,11 +643,7 @@
  
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [_nameText resignFirstResponder];
-    [_localText resignFirstResponder];
-}
+
 
 #pragma mark - calendarDelegate
 -(void)calendarViewWithColor:(NSString *)color withTitle:(NSString *)string

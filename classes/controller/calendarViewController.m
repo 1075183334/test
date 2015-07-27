@@ -71,7 +71,7 @@
     UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
     cell.textLabel.textColor=[UIColor blueColor];
     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-    _selectedIndex = indexPath.row;
+    _selectedIndex = (int)indexPath.row;
 //    NSLog(@"%d",_selectedIndex);
   
 }
@@ -100,9 +100,12 @@
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
+    
     UILabel* lable = [[UILabel alloc]initWithFrame:CGRectMake(260, 15, 10, 10)];
     AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
-    lable.backgroundColor = [appDelegate returnColorWithTag:[[_ColorMutableArr objectAtIndex:indexPath.row]integerValue]];
+    lable.backgroundColor = [appDelegate returnColorWithTag:[[_ColorMutableArr objectAtIndex:indexPath.row]intValue]];
+    lable.layer.cornerRadius = 5;
+    lable.layer.masksToBounds = YES;
     [cell addSubview:lable];
     
     return cell;

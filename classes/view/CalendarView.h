@@ -68,7 +68,7 @@
 @protocol CalendarDelegate <NSObject>
 
 -(void)dayChangedToDate:(NSDate *)selectedDate;
-
+-(void)HeightOfCalendar:(float)Height;
 @optional
 
 -(void)setHeightNeeded:(NSInteger)heightNeeded;

@@ -33,7 +33,7 @@
         return;
     }
     _timeString = timeString;
-    NSLog(@"%d",[_timeArr indexOfObject:_timeString]);
+//    NSLog(@"%lu",(unsigned long)[_timeArr indexOfObject:_timeString]);
 }
 
 - (void)viewDidLoad {

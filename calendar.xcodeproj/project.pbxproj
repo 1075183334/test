@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E0677EF1B53A65000CE0D8A /* calColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0677EE1B53A65000CE0D8A /* calColorTableViewCell.m */; };
 		4E2FD4CD1B47C12E00DB7E11 /* pickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FD4CC1B47C12E00DB7E11 /* pickView.m */; };
 		4E2FD4D01B47C61E00DB7E11 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FD4CF1B47C61E00DB7E11 /* CalendarView.m */; };
 		4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70CF6B1B4A173800A88A4D /* TodayViewController.m */; };
@@ -24,6 +23,13 @@
 		4E70CFBC1B4BCD7D00A88A4D /* select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CFBB1B4BCD7D00A88A4D /* select.png */; };
 		4E960BCD1B5763A00072DE54 /* timeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E960BCB1B5763A00072DE54 /* timeViewController.m */; };
 		4E960BCE1B5763A00072DE54 /* timeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E960BCC1B5763A00072DE54 /* timeViewController.xib */; };
+		4ECFB7891B65C400001C31F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFB7861B65C400001C31F7 /* Default-568h@2x.png */; };
+		4ECFB78A1B65C400001C31F7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFB7871B65C400001C31F7 /* Default.png */; };
+		4ECFB78B1B65C400001C31F7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFB7881B65C400001C31F7 /* Default@2x.png */; };
+		4ECFB7C11B660FAA001C31F7 /* colorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFB7BF1B660FAA001C31F7 /* colorTableViewCell.m */; };
+		4ECFB7C21B660FAA001C31F7 /* colorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFB7C01B660FAA001C31F7 /* colorTableViewCell.xib */; };
+		4ECFB7C81B661C3E001C31F7 /* CalColorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFB7C61B661C3E001C31F7 /* CalColorTableCell.m */; };
+		4ECFB7C91B661C3E001C31F7 /* CalColorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECFB7C71B661C3E001C31F7 /* CalColorTableCell.xib */; };
 		4ED3C2A51B607682003BE1D0 /* DataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C2A11B607682003BE1D0 /* DataClass.m */; };
 		4ED3C2B11B607BAA003BE1D0 /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C2AE1B607BAA003BE1D0 /* Calendar.m */; };
 		4ED3C2B21B607BAA003BE1D0 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C2B01B607BAA003BE1D0 /* Event.m */; };
@@ -55,8 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4E0677ED1B53A65000CE0D8A /* calColorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calColorTableViewCell.h; sourceTree = "<group>"; };
-		4E0677EE1B53A65000CE0D8A /* calColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calColorTableViewCell.m; sourceTree = "<group>"; };
 		4E2FD4CB1B47C12E00DB7E11 /* pickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pickView.h; sourceTree = "<group>"; };
 		4E2FD4CC1B47C12E00DB7E11 /* pickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pickView.m; sourceTree = "<group>"; };
 		4E2FD4CE1B47C61E00DB7E11 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
@@ -84,6 +88,15 @@
 		4E960BCA1B5763A00072DE54 /* timeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeViewController.h; sourceTree = "<group>"; };
 		4E960BCB1B5763A00072DE54 /* timeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = timeViewController.m; sourceTree = "<group>"; };
 		4E960BCC1B5763A00072DE54 /* timeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = timeViewController.xib; sourceTree = "<group>"; };
+		4ECFB7861B65C400001C31F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4ECFB7871B65C400001C31F7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4ECFB7881B65C400001C31F7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4ECFB7BE1B660FAA001C31F7 /* colorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorTableViewCell.h; sourceTree = "<group>"; };
+		4ECFB7BF1B660FAA001C31F7 /* colorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = colorTableViewCell.m; sourceTree = "<group>"; };
+		4ECFB7C01B660FAA001C31F7 /* colorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = colorTableViewCell.xib; sourceTree = "<group>"; };
+		4ECFB7C51B661C3E001C31F7 /* CalColorTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalColorTableCell.h; sourceTree = "<group>"; };
+		4ECFB7C61B661C3E001C31F7 /* CalColorTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalColorTableCell.m; sourceTree = "<group>"; };
+		4ECFB7C71B661C3E001C31F7 /* CalColorTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalColorTableCell.xib; sourceTree = "<group>"; };
 		4ED3C2A01B607682003BE1D0 /* DataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataClass.h; path = classes/categroy/DataClass.h; sourceTree = SOURCE_ROOT; };
 		4ED3C2A11B607682003BE1D0 /* DataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataClass.m; path = classes/categroy/DataClass.m; sourceTree = SOURCE_ROOT; };
 		4ED3C2AD1B607BAA003BE1D0 /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Calendar.h; path = classes/categroy/Calendar.h; sourceTree = SOURCE_ROOT; };
@@ -157,10 +170,14 @@
 				4E2FD4CF1B47C61E00DB7E11 /* CalendarView.m */,
 				4E2FD4CB1B47C12E00DB7E11 /* pickView.h */,
 				4E2FD4CC1B47C12E00DB7E11 /* pickView.m */,
-				4E0677ED1B53A65000CE0D8A /* calColorTableViewCell.h */,
-				4E0677EE1B53A65000CE0D8A /* calColorTableViewCell.m */,
+				4ECFB7C51B661C3E001C31F7 /* CalColorTableCell.h */,
+				4ECFB7C61B661C3E001C31F7 /* CalColorTableCell.m */,
+				4ECFB7C71B661C3E001C31F7 /* CalColorTableCell.xib */,
 				4ED3C2B31B6097C7003BE1D0 /* ColorButton.h */,
 				4ED3C2B41B6097C7003BE1D0 /* ColorButton.m */,
+				4ECFB7BE1B660FAA001C31F7 /* colorTableViewCell.h */,
+				4ECFB7BF1B660FAA001C31F7 /* colorTableViewCell.m */,
+				4ECFB7C01B660FAA001C31F7 /* colorTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -192,6 +209,9 @@
 		4E70CF771B4A1ACA00A88A4D /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				4ECFB7861B65C400001C31F7 /* Default-568h@2x.png */,
+				4ECFB7871B65C400001C31F7 /* Default.png */,
+				4ECFB7881B65C400001C31F7 /* Default@2x.png */,
 				4ED5E85A1B549E4B00B5B715 /* Selected.png */,
 				4ED5E85B1B549E4B00B5B715 /* Unselected.png */,
 				4E70CFBB1B4BCD7D00A88A4D /* select.png */,
@@ -404,15 +424,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ECFB7C91B661C3E001C31F7 /* CalColorTableCell.xib in Resources */,
+				4ECFB78B1B65C400001C31F7 /* Default@2x.png in Resources */,
 				4ED5E85C1B549E4B00B5B715 /* Selected.png in Resources */,
 				D7DDA72B1B44C6F400B211C5 /* Images-2.xcassets in Resources */,
 				D7DDA70E1B44C5FB00B211C5 /* Images.xcassets in Resources */,
+				4ECFB7C21B660FAA001C31F7 /* colorTableViewCell.xib in Resources */,
+				4ECFB7891B65C400001C31F7 /* Default-568h@2x.png in Resources */,
 				4E70CF7A1B4A1AE700A88A4D /* tabbar_background@2x.png in Resources */,
 				4E70CFA31B4BA0E600A88A4D /* ViewController.xib in Resources */,
 				4ED5E85D1B549E4B00B5B715 /* Unselected.png in Resources */,
 				4E70CFBC1B4BCD7D00A88A4D /* select.png in Resources */,
 				4E70CF7B1B4A1AE700A88A4D /* tabbar_slider@2x.png in Resources */,
 				4E960BCE1B5763A00072DE54 /* timeViewController.xib in Resources */,
+				4ECFB78A1B65C400001C31F7 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,13 +464,14 @@
 				4ED3C2A51B607682003BE1D0 /* DataClass.m in Sources */,
 				4ED3C2B21B607BAA003BE1D0 /* Event.m in Sources */,
 				4E70CF991B4B8D8B00A88A4D /* UIFolderTableView.m in Sources */,
+				4ECFB7C11B660FAA001C31F7 /* colorTableViewCell.m in Sources */,
 				4ED3C2B81B60C767003BE1D0 /* PublicClass.m in Sources */,
 				4ED3C2B11B607BAA003BE1D0 /* Calendar.m in Sources */,
 				D7DDA7061B44C5FB00B211C5 /* calendar.xcdatamodeld in Sources */,
 				4E70CF981B4B8D8B00A88A4D /* FolderCoverView.m in Sources */,
 				4E70CF6C1B4A173800A88A4D /* TodayViewController.m in Sources */,
+				4ECFB7C81B661C3E001C31F7 /* CalColorTableCell.m in Sources */,
 				4E960BCD1B5763A00072DE54 /* timeViewController.m in Sources */,
-				4E0677EF1B53A65000CE0D8A /* calColorTableViewCell.m in Sources */,
 				D7DDA7001B44C5FB00B211C5 /* main.m in Sources */,
 				4E70CF721B4A177A00A88A4D /* AddCalendarsViewController.m in Sources */,
 				4E2FD4CD1B47C12E00DB7E11 /* pickView.m in Sources */,
