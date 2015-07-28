@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+  self.title = @"Notification";
     _timeTable.delegate = self;
     _timeTable.dataSource = self;
     

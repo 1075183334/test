@@ -26,7 +26,7 @@
     _calCellColorView.layer.cornerRadius =5;
     _calCellColorView.layer.masksToBounds = YES;
 //    _calCellNameView.textColor = [UIColor blackColor];
-//    _calCellColorNameView.textColor = [UIColor blackColor];
+    _calCellColorNameView.textColor = [UIColor colorWithRed:0.482 green:0.482 blue:0.506 alpha:0.900];
 
 }
 

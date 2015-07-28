@@ -10,6 +10,7 @@
 #import "AddCalendarsViewController.h"
 #import "AppDelegate.h"
 #import "Calendar.h"
+#import "Event.h"
 #import "PublicClass.h"
 #import "colorTableViewCell.h"
 @interface SecondCarlendarViewController ()<UITableViewDataSource,UITableViewDelegate,AddCalendarDelegate>
@@ -136,8 +137,8 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        [self deleteData:[allCalendarsArray objectAtIndex:indexPath.row]];
 
+        [self deleteData:[allCalendarsArray objectAtIndex:indexPath.row]];
         [allCalendarsArray removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -152,7 +153,7 @@
 {
     NSError * error = nil;
     [appdelegate.managedObjectContext deleteObject:calendarObj];
-    
+
     if (![appdelegate.managedObjectContext save:&error])
     {
         NSLog(@"error:%@",error);
@@ -174,7 +175,6 @@
     NSError* error;
     NSArray *fetchedObjects = [appdelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     allCalendarsArray = [NSMutableArray arrayWithArray:fetchedObjects];
- 
 }
 
 

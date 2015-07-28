@@ -60,6 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Date And Event";
     _allEventArray                         = [[NSMutableArray alloc]init];
     self.view.backgroundColor              = [UIColor whiteColor];
     UIButton* btn                          = [UIButton buttonWithType:UIButtonTypeContactAdd];
@@ -222,7 +223,6 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
       
-//        Event* event = [_dataMutableArr objectAtIndex:indexPath.row];
         [myappdelegate.managedObjectContext deleteObject:(Event*)[_dataMutableArr objectAtIndex:indexPath.row]];
         [myappdelegate.managedObjectContext save:nil];
         

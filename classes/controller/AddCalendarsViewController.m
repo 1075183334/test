@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor  = [UIColor whiteColor];
+    self.title = @"Add Calendars";
 //    for (UIViewController *subVC in self.navigationController.viewControllers) {
 //        if ([subVC isKindOfClass:[CalendarsViewController class]]) {
 //            self.delegate = subVC;

@@ -4,7 +4,7 @@
         <attribute name="calCheck" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="calColor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="calName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="calEvents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="eventCalendar" inverseEntity="Event" syncable="YES"/>
+        <relationship name="calEvents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="eventCalendar" inverseEntity="Event" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>

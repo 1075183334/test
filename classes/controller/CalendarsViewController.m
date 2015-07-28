@@ -13,8 +13,6 @@
 #import "CalColorTableCell.h"
 @interface CalendarsViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    int _current;
-    int _old;
     NSString* _currentTitle;
     AppDelegate *appdelegate;
     NSMutableArray *contacts;
@@ -24,14 +22,12 @@
 @property (strong,nonatomic)NSIndexPath *lastpath ;
 @property(nonatomic, strong)UITableView* tableView;
 @property(nonatomic, strong)SecondCarlendarViewController *secondController;
-@property(nonatomic, strong)UITableViewCell* cell;
 @end
 
 @implementation CalendarsViewController
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    
     [self showDataFromCoreData];
     [self.tableView reloadData];
     [self tableViewCheckImage];
@@ -50,7 +46,6 @@
     button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-    
     [button setTitle:@"Cancel" forState:UIControlStateNormal];
     [button setTitle:@"All" forState:UIControlStateSelected];
 
@@ -74,10 +69,6 @@
     
     button.selected = (contacts.count != _allDataMutableArr.count);
 }
-
-
-
-
 
 - (void)allSelect:(UIButton*)sender{
     if (contacts.count == _allDataMutableArr.count) {
@@ -104,18 +95,10 @@
         }
     }
     [appdelegate saveContext];
-
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(BOOL)returnBOOLWithCheck:(NSString*)string
-{
-    if ([string isEqualToString:@"YES"]) {
-        return YES;
-    }
-    else
-        return NO;
-}
+
 
 -(void)showNextVic
 {
@@ -149,7 +132,6 @@
     }
     if (indexPath.section == 1) {
        
-        
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         CalColorTableCell *cell = (CalColorTableCell*)[_tableView cellForRowAtIndexPath:indexPath];
         if (cell.checked) {

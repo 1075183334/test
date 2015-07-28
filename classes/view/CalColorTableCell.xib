@@ -15,12 +15,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M3C-mY-9Tu">
-                        <rect key="frame" x="10" y="17" width="10" height="10"/>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="15" y="17" width="10" height="10"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uzu-lL-m7N">
                         <rect key="frame" x="35" y="0.0" width="160" height="44"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -30,6 +30,7 @@
                 <outlet property="calColorCellView" destination="M3C-mY-9Tu" id="lxD-ba-1pj"/>
                 <outlet property="calColorNameCellLable" destination="Uzu-lL-m7N" id="dTu-g7-wko"/>
             </connections>
+            <point key="canvasLocation" x="108" y="239"/>
         </tableViewCell>
     </objects>
 </document>

@@ -26,8 +26,8 @@
     NSString* _newColor;
     UILabel* _lable;
     Calendar* _cal;
+    Calendar* _colorAndName;
     UISwitch* _sw;
-    UIAlertView *_alert;
     NSString* _colorNameString;
     
     NSString* _timeVCforTime;
@@ -36,6 +36,7 @@
     
     BOOL showStartTime;
     BOOL showEndTime;
+    
     UIDatePicker                *startDatePicker;
     UIDatePicker                *endDatePicker;
     IBOutlet UITableViewCell *cellStartTime;
@@ -43,6 +44,8 @@
     IBOutlet UITableViewCell *cellEndTime;
     IBOutlet UILabel        *lblEndTime;
     
+    NSMutableArray* _colorAndNameMutableArr;
+    UIButton* saveBtn;
     UIView* line;
 }
 @property (strong, nonatomic) NSDictionary *currentCate;
@@ -68,17 +71,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.title = @"New Event";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(CancelVic)];
     line = [[UIView alloc]initWithFrame:CGRectMake(80, 11, 160, 1)];
     line.backgroundColor = [UIColor redColor];
-
+    _colorAndNameMutableArr = [[NSMutableArray alloc]init];
     self.tableView.separatorStyle               = YES;
     self.tableView.showsVerticalScrollIndicator = NO;
     _calendarVc                                 = [[calendarViewController alloc]init];
     _lable                                      = [[UILabel alloc]initWithFrame:CGRectMake(305, 15, 10, 10)];
-    self.navigationItem.rightBarButtonItem      = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(DataSave)];
+    
+    saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    saveBtn.frame = CGRectMake(0, 0, 40, 30);
+    [saveBtn setTitle:@"Save" forState:UIControlStateNormal];
+    [saveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [saveBtn addTarget:self action:@selector(DataSave) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem      = [[UIBarButtonItem alloc]initWithCustomView:saveBtn];
     _nameString                                 = _eventName.eventName;
     _localString                                = _eventName.eventLocal;
+    [lblEndTime addSubview:line];
+    line.hidden = YES;
     _calendarVc.delegate = self;
     myappdelegate        = [UIApplication sharedApplication].delegate;
     _timeVc = [[timeViewController alloc]init];
@@ -87,10 +99,17 @@
     [self createNameText];
     [self createTextView];
     [self currentDateString];
-    [self returnDateWithString];
     [self createSwitchAndAlertView];
-    
+    if (!_eventName)
+    {
+    [self showCalendarColorAndName];
+    }
 
+}
+
+-(void)CancelVic
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)createSwitchAndAlertView
@@ -105,13 +124,6 @@
     }
     [_sw addTarget:self action:@selector(swClick:) forControlEvents:UIControlEventValueChanged];
     [_sw setOn:_eventName.eventAllday];
-    
-    _alert = [[UIAlertView alloc] initWithTitle:@"请选择cal"
-                                        message:nil
-                                       delegate:self
-                              cancelButtonTitle:nil
-                              otherButtonTitles:@"确定",nil];
-    [self.view addSubview:_alert];
 }
 
 -(NSDate*)currentDateString
@@ -121,21 +133,12 @@
     return strDate;
 }
 
-
--(void)returnDateWithString
-{
-//    NSLog(@"%@",[self currentDateString]);
-}
-
-
 -(void)DataSave
 {
-    if ( _cal == nil && !_eventName.eventCalendar) {
-        [_alert show];
-        return;
-    }
-    [self saveData];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+        [self saveData];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+   
 }
 
 -(void)swClick:(UISwitch*)sw
@@ -145,45 +148,39 @@
         [_sw setOn:YES];
         startDatePicker.datePickerMode = UIDatePickerModeDate;
         endDatePicker.datePickerMode = UIDatePickerModeDate;
-        lblStartTime.text = [self changeDateToString: _eventName.startTime?_eventName.startTime:startDatePicker.date];
+        lblStartTime.text = [self changeDateToString:startDatePicker.date?startDatePicker.date:_eventName.startTime];
         if (lblStartTime.text.length == 0) {
             lblStartTime.text = [self changeDateToString:[self currentDateString]];
         }
-        lblEndTime.text = [self changeDateToString:_eventName.endTime?_eventName.endTime:endDatePicker.date];
+        lblEndTime.text = [self changeDateToString:endDatePicker.date?endDatePicker.date:_eventName.endTime];
         if (lblEndTime.text.length == 0) {
             lblEndTime.text = [self changeDateToString:[self currentDateString]];
         }
-        if ([startDatePicker.date compare:_eventName.endTime?_eventName.endTime:endDatePicker.date] == NSOrderedDescending ||[[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending) {
-            [lblEndTime addSubview:line];
-        }else
-        {
-            [line removeFromSuperview];
-        }
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
     }
     else
     {
         [_sw setOn:NO];
         startDatePicker.datePickerMode = UIDatePickerModeDateAndTime;
         endDatePicker.datePickerMode = UIDatePickerModeDateAndTime;
-        lblStartTime.text = [self changeDateDayToString:_eventName.startTime?_eventName.startTime:startDatePicker.date];
+        lblStartTime.text = [self changeDateDayToString:startDatePicker.date?startDatePicker.date:_eventName.startTime];
         if (lblStartTime.text.length == 0) {
             lblStartTime.text = [self changeDateDayToString:[self currentDateString]];
         }
-        lblEndTime.text = [self changeDateDayToString:_eventName.endTime?_eventName.endTime:endDatePicker.date];
+        lblEndTime.text = [self changeDateDayToString:endDatePicker.date?endDatePicker.date:_eventName.endTime];
         if (lblEndTime.text.length == 0) {
             lblEndTime.text = [self changeDateDayToString:[self currentDateString]];
         }
-        if ([startDatePicker.date compare:_eventName.endTime?_eventName.endTime:endDatePicker.date] == NSOrderedDescending ||[[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending) {
-            [lblEndTime addSubview:line];
-        }else
-        {
-            [line removeFromSuperview];
-        }
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
     }
+    
+    if ([[self changeStringToDateDay:lblStartTime.text] compare:[self changeStringToDateDay:lblEndTime.text]] == NSOrderedDescending || [[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending)   {
+        [self showLine];
+    }
+    else
+    {
+        [self hideLine];
+    }
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
     
 }
 
@@ -221,12 +218,6 @@
 -(void)createNameText
 {
     _nameText               = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, self.tableView.bounds.size.width-20, 40)];
-//    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 25)];
-//    paddingView.text = @" ";
-//    paddingView.textColor = [UIColor darkGrayColor];
-//    paddingView.backgroundColor = [UIColor clearColor];
-//    _nameText.leftView = paddingView;
-//    _nameText.leftViewMode = UITextFieldViewModeAlways;
     _nameText.placeholder   = @"Event Name";
     _nameText.delegate      = self;
     _nameText.keyboardType  = UIKeyboardTypeNamePhonePad;//键盘显示类型
@@ -237,11 +228,6 @@
 {
     _localText =[[UITextField alloc]initWithFrame:CGRectMake(15, 0, self.tableView.bounds.size.width-20, 40)];
     _localText.placeholder   = @"Location";
-//    UILabel *paddingView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 25)];
-//    paddingView.text = @" ";
-//    paddingView.textColor = [UIColor darkGrayColor];
-//    paddingView.backgroundColor = [UIColor clearColor];
-//    _localText.leftView = paddingView;
     _localText.leftViewMode = UITextFieldViewModeAlways;
     _localText.delegate      = self;
     _localText.keyboardType  = UIKeyboardTypeNamePhonePad;
@@ -264,7 +250,6 @@
     endDatePicker = [[UIDatePicker alloc] init];
     _eventName==nil?(endDatePicker.date = [self currentDateString]):(endDatePicker.date = _eventName.endTime);
     _endTimeDate = [self currentDateString];
-    endDatePicker.minimumDate = startDatePicker.date;
     endDatePicker.frame = CGRectMake(0, 44, self.view.frame.size.width, 216);
     [endDatePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     [cellEndTime addSubview:endDatePicker];
@@ -385,8 +370,6 @@
             {
                  _sw.isOn?(lblEndTime.text = [self changeDateToString:_eventName.endTime]):(lblEndTime.text = [self changeDateDayToString:_eventName.endTime]);
             }
-            
-            
             cellEndTime.selectionStyle = UITableViewCellSelectionStyleNone;
 
             cellEndTime.clipsToBounds = YES;
@@ -408,7 +391,13 @@
         if (indexPath.row == 0) {
             
             colorTableViewCell* cell = [[[NSBundle mainBundle]loadNibNamed:@"colorTableViewCell" owner:nil options:nil]lastObject];
+            
+            cell.calCellColorNameView.text = _colorAndName.calName;
+            cell.calCellColorView.backgroundColor = [appDleegate returnColorWithTag:[_colorAndName.calColor intValue]];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.calCellNameView.text  = @"Calendar";
+   
             if (_title.length == 0) {
                 if (_eventName.eventCalendar.calName.length > 0)
                 {
@@ -436,7 +425,7 @@
         }else{
             
             _noteTextView.text = _eventName.eventNote?_eventName.eventNote:_noteTextView.text;
-            _noteTextView.font = [UIFont systemFontOfSize:15];
+            _noteTextView.font = [UIFont systemFontOfSize:17];
             [cell addSubview:_noteTextView];
             
         }}
@@ -446,12 +435,6 @@
 
 
 #pragma mark - textfiled delegate
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    
-
-}
-
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -459,9 +442,7 @@
         _nameString = textField.text;
     }else
         _localString = textField.text;
-//    NSLog(@"%@==%@",_nameString,_localString);
-    [_nameText resignFirstResponder];
-    [_localText resignFirstResponder];
+    
 }
 
 
@@ -490,9 +471,7 @@
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if (indexPath.section == 1) {
-       
             if (indexPath.row == 0) {
                 [self dissmissKeyboard];
                 showStartTime = !showStartTime;
@@ -500,16 +479,14 @@
                     if (!startDatePicker) {
                         [self createStartDatePicker];
                         _sw.isOn?(startDatePicker.datePickerMode = UIDatePickerModeDate):(startDatePicker.datePickerMode = UIDatePickerModeDateAndTime);
-                        _sw.isOn?(lblStartTime.text = [self changeDateToString:_eventName.startTime?_eventName.startTime:_startTimeDate]):(lblStartTime.text = [self changeDateDayToString:_eventName.startTime?_eventName.startTime:_startTimeDate]);
                     }
                 }
-                
-               
-                if ([startDatePicker.date compare:_eventName.endTime?_eventName.endTime:endDatePicker.date] == NSOrderedDescending ||[[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending) {
-                    [lblEndTime addSubview:line];
-                }else
+                if ([[self changeStringToDateDay:lblStartTime.text] compare:[self changeStringToDateDay:lblEndTime.text]] == NSOrderedDescending || [[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending)   {
+                    [self showLine];
+                }
+                else
                 {
-                    [line removeFromSuperview];
+                    [self hideLine];
                 }
                
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -524,15 +501,16 @@
                     if (!endDatePicker) {
                         [self createEndDatePicker];
                         _sw.isOn?(endDatePicker.datePickerMode = UIDatePickerModeDate):(endDatePicker.datePickerMode = UIDatePickerModeDateAndTime);
-                        _sw.isOn?(lblEndTime.text = [self changeDateToString:_eventName.endTime?_eventName.endTime:_endTimeDate]):(lblEndTime.text = [self changeDateDayToString:_eventName.endTime?_eventName.endTime:_endTimeDate]);
                     }
                 }
                 
-                if ([startDatePicker.date compare:_eventName.endTime?_eventName.endTime:endDatePicker.date] == NSOrderedDescending ||[[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending) {
-                    [lblEndTime addSubview:line];
-                }else
+                if ([[self changeStringToDateDay:lblStartTime.text] compare:[self changeStringToDateDay:lblEndTime.text]] == NSOrderedDescending || [[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending)
                 {
-                    [line removeFromSuperview];
+                    [self showLine];
+                }
+                else
+                {
+                    [self hideLine];
                 }
               
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -555,19 +533,41 @@
     
 }
 
+-(void)showLine
+{
+    line.hidden = NO;
+    saveBtn.userInteractionEnabled = NO;
+    [saveBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+
+}
+
+-(void)hideLine
+{
+    line.hidden = YES;
+    saveBtn.userInteractionEnabled = YES;
+    [saveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+}
 -(void)datePickerValueChanged:(id) sender{
     if (sender == startDatePicker) {
+        
         _sw.isOn?(lblStartTime.text = [self changeDateToString:startDatePicker.date]):(lblStartTime.text = [self changeDateDayToString:startDatePicker.date]);
-        _eventName.startTime = startDatePicker.date;
-        endDatePicker.minimumDate = startDatePicker.date;
         _startTimeDate = startDatePicker.date;
+        
     }
     if (sender == endDatePicker) {
          _sw.isOn?(lblEndTime.text = [self changeDateToString:endDatePicker.date]):(lblEndTime.text = [self changeDateDayToString:endDatePicker.date]);
-         _eventName.endTime = endDatePicker.date;
-        endDatePicker.minimumDate = startDatePicker.date;
         _endTimeDate = endDatePicker.date;
     }
+    
+    if ([[self changeStringToDateDay:lblStartTime.text] compare:[self changeStringToDateDay:lblEndTime.text]] == NSOrderedDescending || [[self changeStringToDate:lblStartTime.text] compare:[self changeStringToDate:lblEndTime.text]] == NSOrderedDescending)   {
+        [self showLine];
+    }
+    else
+    {
+        [self hideLine];
+    }
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
 }
 
 
@@ -578,12 +578,11 @@
     return [dateFormatter stringFromDate:date];
 }
 
--(NSDate*)changeStringToDate:(NSString*)string
+-(NSDate*)changeStringToDateDay:(NSString*)string
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     return [dateFormatter dateFromString:string];
-
 }
 
 -(NSString*)changeDateToString:(NSDate*)date
@@ -593,6 +592,12 @@
     return [dateFormatter stringFromDate:date];
 }
 
+-(NSDate*)changeStringToDate:(NSString*)string
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    return [dateFormatter dateFromString:string];
+}
 
 -(void)saveData
 {
@@ -607,14 +612,14 @@
         object.date          = [self currentDateString];
         object.eventAllday   = _sw.isOn?YES:NO;
         object.eventNotif    = _timeVCforTime;
-        object.eventCalendar = _cal;
+        object.eventCalendar = _cal?_cal:_colorAndName;
     }
     else
     {
         _eventName.endTime       = endDatePicker.date?endDatePicker.date:_eventName.endTime;
         _eventName.startTime     = startDatePicker.date?startDatePicker.date:_eventName.startTime;
         _eventName.eventName     = _nameString;
-        _eventName.eventLocal    = _localString;
+        _eventName.eventLocal    = _localString.length>0?_localString:_localText.text;
         _eventName.eventNote     = _noteTextView.text?_noteTextView.text:_eventName.eventNote;
         _eventName.date          = [self currentDateString];
         _eventName.eventAllday   = _sw.isOn?YES:NO;
@@ -643,7 +648,20 @@
  
 }
 
-
+-(void)showCalendarColorAndName
+{
+    NSFetchRequest* request = [[NSFetchRequest alloc]init];
+    [request setEntity:[NSEntityDescription entityForName:@"Calendar" inManagedObjectContext:myappdelegate.managedObjectContext]];
+    
+    NSError *error           = nil;
+    NSArray *result          = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
+    
+    for (Calendar* cal in result) {
+        [_colorAndNameMutableArr addObject:cal];
+    }
+    _colorAndName = [_colorAndNameMutableArr objectAtIndex:0];
+    _title = _colorAndName.calName;
+}
 
 #pragma mark - calendarDelegate
 -(void)calendarViewWithColor:(NSString *)color withTitle:(NSString *)string
@@ -653,13 +671,6 @@
     [self.tableView reloadData];
    _cal      = [self updateData:_title];
 }
-
--(void)removeData
-{
-    _nameText.text = nil;
-    _localText.text = nil;
-}
-
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
