@@ -114,7 +114,6 @@
     colorTableViewCell *cell  =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"colorTableViewCell" owner:nil options:nil];
-        //第一个对象就是CustomCell了
         cell = [nib objectAtIndex:0];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -122,7 +121,6 @@
     Calendar * cellCalendar = [allCalendarsArray objectAtIndex:indexPath.row];
 
     cell.calCellNameView.text             = [NSString stringWithFormat:@"%@",cellCalendar.calName];
-//    cell.calCellColorNameView.text        = [NSString stringWithFormat:@"%@",cellCalendar.calName];
     cell.calCellColorView.backgroundColor = [appDelegate returnColorWithTag:[cellCalendar.calColor intValue]];
     return cell;
 }

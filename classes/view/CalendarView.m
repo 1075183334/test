@@ -32,7 +32,8 @@
 @property(nonatomic, strong)NSMutableArray* allEndTimeArray;
 @end
 @implementation CalendarView
-
+@synthesize buttonNext;
+@synthesize buttonPrev;
 #pragma mark - Init methods
 
 - (id)initWithFrame:(CGRect)frame
@@ -60,7 +61,7 @@
         _dayTxtColorSelected        = [UIColor whiteColor];
         
         _borderColor                = [UIColor brownColor];
-        _allowsChangeMonthByDayTap  = NO;
+        _allowsChangeMonthByDayTap  = YES;
         _allowsChangeMonthByButtons = YES;
         _allowsChangeMonthBySwipe   = YES;
         _hideMonthLabel             = NO;
@@ -76,6 +77,8 @@
         _defaultFont                = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
         _titleFont                  = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
         
+        buttonPrev           = [[UIButton alloc] init];
+        buttonNext           = [[ UIButton alloc] init];
         
         _swipeleft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(showNextMonth)];
         _swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
@@ -104,7 +107,7 @@
 
 -(id)init
 {
-    self = [self initWithFrame:CGRectMake(0, 60, 320, 300)];
+    self = [self initWithFrame:CGRectMake(0, 40, 320, 300)];
     if (self)
     {
         
@@ -153,6 +156,14 @@
     [self setNeedsDisplay];
 }
 
+-(NSDate*)showtoday
+{
+    NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:[NSDate date]];
+    components.hour         = 0;
+    components.minute       = 0;
+    components.second       = 0;
+    return  [_gregorian dateFromComponents:components];
+}
 
 -(void)showCurrentDay
 {
@@ -174,7 +185,6 @@
     components.day = 1;
     components.month ++;
     NSDate * nextMonthDate =[_gregorian dateFromComponents:components];
-    
     if ([self canSwipeToDate:nextMonthDate])
     {
         [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -259,11 +269,6 @@
     return [_datasource canSwipeToDate:date];
 }
 
-/**
- *   显示的动画
- *
- *  @param animation
- */
 
 -(void)performViewAnimation:(UIViewAnimationOptions)animation
 {
@@ -318,7 +323,7 @@
     button.titleLabel.font          = _defaultFont;
     button.frame                    = frame;
     button.layer.borderColor        = _borderColor.CGColor;
-    [button     addTarget:self action:@selector(tappedDate:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(tappedDate:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 
@@ -327,7 +332,6 @@
     NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:date];
     [button setTitle:[NSString stringWithFormat:@"%ld",(long)components.day] forState:UIControlStateNormal];
     button.tag = [self buttonTagForDate:date];
-//    NSLog(@"%@",[button currentTitle]);
     
     [self compareTime:date button:button];
     
@@ -350,7 +354,6 @@
             [button setBackgroundColor:_dayBgColorWithData];
         }
     }
-
     NSDateComponents * componentsDateCal = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
     if (components.month != componentsDateCal.month)
         button.alpha = 0.6f;
@@ -431,13 +434,13 @@
 - (void)drawRect:(CGRect)rect
 {
     NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
-    
     components.day = 1;
     NSDate *firstDayOfMonth         = [_gregorian dateFromComponents:components];
     NSDateComponents *comps         = [_gregorian components:NSWeekdayCalendarUnit fromDate:firstDayOfMonth];
     
-    NSInteger weekdayBeginning      = [comps weekday];  // Starts at 1 on Sunday
-    weekdayBeginning -=2;
+    NSInteger weekdayBeginning      = [comps weekday];// Starts at 1 on Sunday
+
+       weekdayBeginning -=2;
     if(weekdayBeginning < 0)
         weekdayBeginning += 7;                          // Starts now at 0 on Monday
     
@@ -447,11 +450,10 @@
     
     NSInteger monthLength = days.length;
     NSInteger remainingDays = (monthLength + weekdayBeginning) % 7;
-    
+
     // Frame drawing
     NSInteger minY = _originY-20 + _dayWidth;
     NSInteger maxY = _originY-20 + _dayWidth * (NSInteger)(1+(monthLength+weekdayBeginning)/7) + ((remainingDays !=0)? _dayWidth:0);
-    
     if (_delegate != nil && [_delegate respondsToSelector:@selector(setHeightNeeded:)])
         [_delegate setHeightNeeded:maxY];
     
@@ -476,19 +478,19 @@
         [_delegate HeightOfCalendar:_currentCalendarHeight];
     }
     // Previous and next button
-    UIButton * buttonPrev           = [[UIButton alloc] initWithFrame:CGRectMake(_dayWidth, 0, _dayWidth, _dayWidth)];
+//    buttonPrev.frame=CGRectMake(_dayWidth, 0, _dayWidth, _dayWidth);
     [buttonPrev setTitle:@"<" forState:UIControlStateNormal];
-    [buttonPrev setTitleColor:_monthAndDayTextColor forState:UIControlStateNormal];
+    [buttonPrev setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [buttonPrev addTarget:self action:@selector(showPreviousMonth) forControlEvents:UIControlEventTouchUpInside];
     buttonPrev.titleLabel.font      = _defaultFont;
-    [self addSubview:buttonPrev];
+//    [self addSubview:buttonPrev];
 
-    UIButton * buttonNext           = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - _dayWidth - _originX, 0, _dayWidth, _dayWidth)];
+//    buttonNext.frame=CGRectMake(self.bounds.size.width - _dayWidth - _originX, 0, _dayWidth, _dayWidth);
     [buttonNext setTitle:@">" forState:UIControlStateNormal];
-    [buttonNext setTitleColor:_monthAndDayTextColor forState:UIControlStateNormal];
+    [buttonNext setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [buttonNext addTarget:self action:@selector(showNextMonth) forControlEvents:UIControlEventTouchUpInside];
     buttonNext.titleLabel.font      = _defaultFont;
-    [self addSubview:buttonNext];
+//    [self addSubview:buttonNext];
 
     NSDateComponents *componentsTmp = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
     componentsTmp.day               = 1;
@@ -521,7 +523,7 @@
     [format setDateFormat:@"MMMM yyyy"];
     NSString *dateString            = [[format stringFromDate:_calendarDate] uppercaseString];
     
-    if (!_hideMonthLabel)
+    if (_hideMonthLabel)
     {
         UILabel *titleText              = [[UILabel alloc]initWithFrame:CGRectMake(90,0, self.bounds.size.width-180, _originY-5)];
         titleText.textAlignment         = NSTextAlignmentCenter;
@@ -538,6 +540,7 @@
     __block CGRect frameWeekLabel = CGRectMake(0, _originY-20, _dayWidth, _dayWidth);
     [_weekDayNames  enumerateObjectsUsingBlock:^(NSString * dayOfWeekString, NSUInteger idx, BOOL *stop)
      {
+//         NSLog(@"%lu  %@",(unsigned long)idx,dayOfWeekString);
          frameWeekLabel.origin.x         = _originX+(_dayWidth*idx);
          UILabel *weekNameLabel          = [[UILabel alloc] initWithFrame:frameWeekLabel];
          weekNameLabel.text              = dayOfWeekString;
@@ -548,7 +551,6 @@
          [self addSubview:weekNameLabel];
      }];
     
-    //    NSLog(@"monthLength==%ld",(long)monthLength);
 
     // Previous month
     NSDateComponents *previousMonthComponents = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
@@ -568,9 +570,6 @@
         [self configureDayButton:button withDate:[_gregorian dateFromComponents:previousMonthComponents]];
         [self addSubview:button];
     }
-//    NSLog(@"weekdayBeginning==%ld",(long)weekdayBeginning);
-    // Next month
-//    NSLog(@"%@",_currentMonthFirstday);
 
 //    if(remainingDays == 0)
 //        return ;
@@ -579,7 +578,6 @@
     nextMonthComponents.month ++;
     
     for (NSInteger i=remainingDays; i<7; i++)
-        
     {
         nextMonthComponents.day         = (i+1)-remainingDays;
         NSInteger offsetX               = (_dayWidth*((i) %7));
@@ -601,6 +599,7 @@
         UIButton *button    = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY-20+_dayWidth+offsetY, _dayWidth, _dayWidth)];
         
         [self configureDayButton:button withDate:[_gregorian dateFromComponents:components]];
+        
         [self addSubview:button];
     }
 
@@ -632,7 +631,7 @@
     [_allStartTimeArray removeAllObjects];
     [_allEndTimeArray removeAllObjects];
     [self getAllEvent];
-    for (id subView in self.subviews) {
+    for (id subView in self.subviews){
         [subView removeFromSuperview];
     }
     [self setNeedsDisplay];

@@ -85,10 +85,7 @@
     
     NSError *error = nil;
     NSArray *result = [myappdelegate.managedObjectContext executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-    //    for (Event *info in result) {
-    //    NSLog(@"result==%@  %@",info.date,info.eventName);
-    //    }
-//    NSLog(@"%@",result);
+  
     [eventArray removeAllObjects];
     for (Calendar *cal in result) {
         [eventArray addObjectsFromArray:[cal.calEvents allObjects]];

@@ -33,11 +33,6 @@
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(SaveBtn)];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-//    NSLog(@"%@",colorString);
-}
-
 -(void)SaveBtn
 {
     if ([self.delegate respondsToSelector:@selector(calendarViewWithColor:withTitle:)]) {

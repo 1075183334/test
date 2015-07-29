@@ -58,6 +58,8 @@
 @property (nonatomic, assign) BOOL hideMonthLabel;
 
 @property (nonatomic, assign) BOOL isHaveEvent;
+@property (nonatomic, strong) UIButton * buttonPrev;
+@property (nonatomic, strong) UIButton * buttonNext;
 
 -(void) reload;
 

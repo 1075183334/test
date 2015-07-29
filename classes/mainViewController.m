@@ -43,6 +43,16 @@
     _dataMutableArr = [self returnNewDateArr:[NSMutableArray arrayWithArray:[self getData:_date]]];
      [self.table reloadData];
      [self.myCalendar reload];
+    
+    _myCalendar.buttonNext.hidden = NO;
+    _myCalendar.buttonPrev.hidden = NO;
+    
+}
+
+-(void)setMonthLabel:(NSString *)monthLabel
+{
+    self.title = monthLabel;
+    
 }
 
 -(NSMutableArray*)returnNewDateArr:(NSMutableArray*)oldDateArr
@@ -57,20 +67,37 @@
     return newDateArr;
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    _myCalendar.buttonNext.hidden = YES;
+    _myCalendar.buttonPrev.hidden = YES;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Date And Event";
     _allEventArray                         = [[NSMutableArray alloc]init];
     self.view.backgroundColor              = [UIColor whiteColor];
-    UIButton* btn                          = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    [btn addTarget:self action:@selector(EditClick) forControlEvents:UIControlEventTouchUpInside];
+
+    [self createCalendar];
+    
+    UIButton* nextBtn = _myCalendar.buttonNext;
+    nextBtn.frame = CGRectMake(240, 25, 40, 30);
+    [self.navigationController.view addSubview:nextBtn];
+    
+    UIButton* previous = _myCalendar.buttonPrev;
+    previous.frame = CGRectMake(40, 25, 40, 30);
+    [self.navigationController.view addSubview:previous];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(EditClick)];
     _dataMutableArr                        = [[NSMutableArray alloc]init];
     _date                                  = [[NSDate alloc]init];
     myappdelegate                          = [UIApplication sharedApplication].delegate;
     calendarsVic                           = [[CalendarsViewController alloc]init];
-    [self createCalendar];
+    
     [self createTableView];
     [self createChildVic];
 }
@@ -165,7 +192,7 @@
 {
 //    NSLog(@"height == %f",Height);
     _tableViewheight = Height;
-    self.table.frame = CGRectMake(0, Height+130, self.view.frame.size.width,  self.view.bounds.size.height-350);
+    self.table.frame = CGRectMake(0, Height+101, self.view.frame.size.width,  self.view.bounds.size.height-350);
 }
 
 #pragma mark - uitableViewdelegate
